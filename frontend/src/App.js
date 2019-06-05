@@ -6,7 +6,7 @@ const submitButton=(e,username,password)=>{
   const formData=new FormData();
   formData.append('username',username);
   formData.append('password',password)
-  fetch('http://localhost:8000/login_autenticate',{
+  fetch('/login_autenticate',{
     method: 'POST',
     headers: {
       // 'Accept': 'application/json',
