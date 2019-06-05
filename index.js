@@ -4,6 +4,7 @@ const path=require('path');
 const formidable = require('formidable');
 const bodyParser=require('body-parser')
 const app = express();
+const port=process.env.PORT || 8000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
 app.use(cors());
 app.use(express.json())
@@ -20,4 +21,4 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
   });
 
-app.listen(8000)
+app.listen(port)
