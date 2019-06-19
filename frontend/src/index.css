@@ -13,13 +13,49 @@ code {
 }
 #root{
   height:100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: antiquewhite;
+}
+#register{
+  height:100%;
+  background-image: url(./images/city-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#login{
+  height:100%;
+  background-image: url(./images/city-backg-2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .login-form{
   padding: 30px;
     background-color: white;
     border-radius: 10px;
+}
+.card-background-login{
+  background: white;
+position: relative;
+top:30%;
+margin:0 auto;
+border-color: rgba(0, 0, 0, 0.85);
+}
+.card-background{
+  background: white;
+ margin:15%
+}
+.card-body-login{
+  background: rgba(0, 0, 0, 0.85);
+}
+.card-header{
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+}
+
+.row{
+  margin: 0px;
+
+}
+@media only screen and (max-width:768px){
+  .card-background{
+   margin:5%
+  }
 }
