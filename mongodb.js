@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const RegisterCollection=require('./collections/RegisterCollection')
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.url, {
+mongoose.connect(process.env.MONGOLAB_URI
+    // dbConfig.url
+    , {
   useNewUrlParser: true
 }).then(() => {
   console.log("Successfully connected to the database");    
