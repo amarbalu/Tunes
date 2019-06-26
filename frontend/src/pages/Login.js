@@ -25,7 +25,7 @@ const loginApiCall=()=>{
         }
     }
     const check=()=>{
-      return fetch('http://localhost:8000/login/successRedirect',{
+      return fetch('/login/successRedirect',{
         method:"GET",
           credentials: 'include'
     }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
