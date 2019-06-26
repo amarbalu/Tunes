@@ -26,7 +26,8 @@ const loginApiCall=()=>{
     }
     const check=()=>{
       return fetch('http://localhost:8000/login/successRedirect',{
-        method:"GET"
+        method:"GET",
+          credentials: 'include'
     }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
     }
   return (
@@ -44,7 +45,7 @@ const loginApiCall=()=>{
 </div>
 <div className="form-group">
       <button id="Login" className="btn btn-primary" onClick={()=>loginApiCall()}>Login</button></div>
-      {/* <button id="Login" className="btn btn-primary" onClick={()=>check()}>check</button> */}
+      <button id="Login" className="btn btn-primary" onClick={()=>check()}>check</button>
       <a href="/Register" >Not Register? Create an account</a>
       </div>
      
