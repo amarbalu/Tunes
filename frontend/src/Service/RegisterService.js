@@ -4,13 +4,13 @@ const RegisterService={
 }
 
 function onRegister(formData){
-    return fetch('http://localhost:8000/register/onRegister',{
+    return fetch('/register/onRegister',{
         method:"POST",
        body:formData
     }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
 }
 function deleteRegister(formData){
-    return fetch('http://localhost:8000/register/deleteRegister',{
+    return fetch('/register/deleteRegister',{
         method:"POST",
        body:formData
     }).then(function(res){ return res.json(); }).catch(err=>console.log(err));

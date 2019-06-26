@@ -1,3 +1,3 @@
 module.exports={
-    url:"mongodb://localhost/app"
+    url:"mongodb+srv://amarbalu:Ab@13abc@musicapp-favr0.mongodb.net/test?retryWrites=true&w=majority"
 }

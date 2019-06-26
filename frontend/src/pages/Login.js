@@ -24,11 +24,12 @@ const loginApiCall=()=>{
                             break;
         }
     }
-    const check=()=>{
-      return fetch('http://localhost:8000/login/successRedirect',{
-        method:"GET"
-    }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
-    }
+    // const check=()=>{
+    //   return fetch('/login/successRedirect',{
+    //     method:"GET",
+    //     credentials: 'include'
+    // }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
+    // }
   return (
     <div className="row" id="login">
       <div className="card bg-light text-dark card-background-login">

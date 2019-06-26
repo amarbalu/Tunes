@@ -35,6 +35,5 @@
     "extends": "react-app"
   },
   "browserslist": "> 0.25%, not dead",
-  "proxy": "http://localhost:8000",
   "targets": "> 0.25%, not dead"
 }
