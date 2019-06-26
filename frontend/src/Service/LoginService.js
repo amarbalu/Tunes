@@ -3,7 +3,7 @@ const LoginService={
 }
 
 function onLogin(formData){
-    return fetch('http://localhost:8000/login/onLogin',{
+    return fetch('/login/onLogin',{
         method:"POST",
         // headers:{
         //     'Content-Type':'application/x-www-form-urlencoded'
