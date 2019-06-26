@@ -1,20 +1,23 @@
-const express=require('express');
+ const express=require('express');
 const path=require('path');
-const formidableMiddleware = require('express-formidable');
-// const mongoose=require('./mongodb')
+const register =require('./Routes/Register');
+const login =require('./Routes/Login');
+const cors = require('cors');
+const bodyParser=require('body-parser');
+const session=require('express-session');
+const passport=require('passport');
+
+require('./mongodb');
 const app = express();
 const port=process.env.PORT || 8000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
-app.use(express.json())
-app.use(formidableMiddleware())
+app.use(cors());
+// app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get("/",(req,res)=>{
-    res.json("Hello World")
-})
+app.use("/register",register);
+app.use("/login",login);
 
-app.post("/login_autenticate",(req,res)=>{
- res.send(req.fields)   
-})
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
   });

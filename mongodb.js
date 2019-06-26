@@ -1,15 +1,17 @@
-// const dbConfig = require('./config/database.config.js');
-// const mongoose = require('mongoose');
+const dbConfig = require('./config/database.config.js');
+const mongoose = require('mongoose');
+const RegisterCollection=require('./collections/RegisterCollection')
 
-// mongoose.Promise = global.Promise;
-// mongoose.connect(dbConfig.url, {
-//   useNewUrlParser: true
-// }).then(() => {
-//   console.log("Successfully connected to the database");    
-// }).catch(err => {
-//   console.log('Could not connect to the database. Exiting now...', err);
-//   process.exit();
-// });
+mongoose.Promise = global.Promise;
+mongoose.connect(dbConfig.url, {
+  useNewUrlParser: true
+}).then(() => {
+  console.log("Successfully connected to the database");    
+}).catch(err => {
+  console.log('Could not connect to the database. Exiting now...', err);
+  process.exit();
+});
+// RegisterCollection.createRegister();
 // const loginSchema = new mongoose.Schema({
 //     username:{type:String,required:true},
 //     password:String,
@@ -56,8 +58,8 @@
 //   console.log(login)
   
 // }
-// // getlogin();
-// // updateloginrecord();
+// getlogin();
+// updateloginrecord();
 // createLogin()
 
-// module.exports=mongoose;
+module.exports=mongoose;

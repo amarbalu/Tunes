@@ -25,6 +25,9 @@ code {
   background-image: url(./images/city-backg-2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .login-form{
   padding: 30px;
@@ -34,13 +37,12 @@ code {
 .card-background-login{
   background: white;
 position: relative;
-top:30%;
-margin:0 auto;
+min-width: 300px;
 border-color: rgba(0, 0, 0, 0.85);
 }
 .card-background{
   background: white;
- margin:15%
+  /* width:100%; */
 }
 .card-body-login{
   background: rgba(0, 0, 0, 0.85);
@@ -54,8 +56,13 @@ border-color: rgba(0, 0, 0, 0.85);
   margin: 0px;
 
 }
-@media only screen and (max-width:768px){
-  .card-background{
-   margin:5%
+.card-width{
+  margin-right: 60px;
+  width:100%
+}
+
+@media only screen and (max-width:568px){
+  .card-width{
+    margin-right: 30px
   }
 }

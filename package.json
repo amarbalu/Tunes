@@ -11,13 +11,23 @@
   "author": "amar",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
+    "express-session": "^1.16.2",
+    "flash": "^1.1.0",
     "form-data": "^2.3.3",
     "formidable": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.0",
-    "nodemon": "^1.19.1"
+    "multer": "^1.4.1",
+    "nodemon": "^1.19.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   }
 }
