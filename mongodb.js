@@ -5,7 +5,7 @@ const RegisterCollection=require('./collections/RegisterCollection')
 mongoose.Promise = global.Promise;
 mongoose.connect(
     // dbConfig.url
-    "mongodb+srv://amarbalu:Ab@13abc@musicapp-favr0.mongodb.net/test?retryWrites=true&w=majority"
+    "mongodb+srv://amarbalu:AB%4013abc@musicapp-favr0.mongodb.net/test?retryWrites=true&w=majority"
     , {
   useNewUrlParser: true
 }).then(() => {
