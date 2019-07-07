@@ -1,6 +1,5 @@
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
-const RegisterCollection=require('./collections/RegisterCollection')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(

@@ -4,6 +4,7 @@ const RegisterService={
 }
 
 function onRegister(formData){
+    // http://localhost:4000
     return fetch('/register/onRegister',{
         method:"POST",
        body:formData

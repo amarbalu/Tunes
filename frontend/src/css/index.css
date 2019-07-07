@@ -16,13 +16,13 @@ code {
 }
 #register{
   height:100%;
-  background-image: url(./images/city-background.jpg);
+  background-image: url(../images/blur_back_2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 #login{
   height:100%;
-  background-image: url(./images/city-backg-2.jpg);
+  background-image: url(../images/blur_back_4.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -38,15 +38,15 @@ code {
   background: white;
 position: relative;
 min-width: 300px;
-border-color: rgba(0, 0, 0, 0.85);
+/* border-color: rgba(0, 0, 0, 0.85); */
 }
 .card-background{
   background: white;
   /* width:100%; */
 }
-.card-body-login{
-  background: rgba(0, 0, 0, 0.85);
-}
+/* .card-body-login{
+  /* background: rgba(0, 0, 0, 0.85); */
+/* }  */
 .card-header{
   background: rgba(0, 0, 0, 0.85);
   color: white;

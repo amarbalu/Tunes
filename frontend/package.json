@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "antd": "^3.18.1",
+    "antd": "^3.20.0",
     "babel-polyfill": "^6.26.0",
     "connect-flash": "^0.1.1",
     "es6-object-assign": "^1.1.0",

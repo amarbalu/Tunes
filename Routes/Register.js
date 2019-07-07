@@ -1,7 +1,7 @@
 const express=require('express');
 const app = express();
 const formidableMiddleware = require('express-formidable');
-const {validateRegister,Register}=require('../collections/RegisterCollection');
+const {validateUser,User}=require('../collections/UserCollection');
 const bcrypt=require('bcrypt');
 app.use(express.json())
 app.use(formidableMiddleware())
@@ -10,27 +10,29 @@ app.post("/onRegister",async(req,res)=>{
     
     let register;
     try{
-          await validateRegister(req.fields);
+          await validateUser(req.fields);
     }catch(ex){
         return res.status(400).send(ex.details[0].message);
     }
     
    
-     register=await Register.findOne({email:req.fields.email});
+     register=await User.findOne({email:req.fields.email});
     if(register)
     return res.status(400).send("User already Registered");
-    const{username,password,email}=req.fields;
-     register =new Register({
+    const{username,password,email,confirmPassword,phoneNumber}=req.fields;
+     register =new User({
         username,
         password,
-        email
+        email,
+        confirmPassword,
+        phoneNumber
     })
     const salt=await bcrypt.genSalt(10);
    const hashed= await bcrypt.hash(req.fields.password,salt);
    register.password=hashed;
 
     const result=await register.save();
-   return res.send(result)
+   return res.send({success:true,email:result.email,message:"User saved successfully."})
    
     
 })

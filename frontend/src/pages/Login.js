@@ -1,16 +1,21 @@
 import React,{useState} from 'react';
 import Service from '../Service/LoginService'
-import '../App.css';
+import '../css/App.css';
 
-
-const Login=()=> {
+import {Card,Form, Icon, Input, Button, Checkbox} from 'antd';
+const Login=(props)=> {
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
 const loginApiCall=()=>{
   const formData=new FormData();
   formData.append("password",password);
   formData.append("email",email);
-  Service.onLogin(formData).then(response => console.log(response)).catch(err=>console.log("err"+err));
+  Service.onLogin(formData).then(response =>{ if(response.success){
+  props.history.push("/dashboard")
+  }}).catch(err=>console.log("err"+err));
+}
+const loginFacebook=()=>{
+  Service.onFacebookLogin().then(response => console.log(response)).catch(err=>console.log("err"+err));
 }
     const saveValues=(e)=>{
         switch(e.target.id){
@@ -24,40 +29,53 @@ const loginApiCall=()=>{
                             break;
         }
     }
-    // const check=()=>{
-    //   return fetch('/login/successRedirect',{
-    //     method:"GET",
-    //     credentials: 'include'
-    // }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
-    // }
+    
   return (
     <div className="row" id="login">
-      <div className="card bg-light text-dark card-background-login">
-      <div className="card-header">Login</div>
-    <div className="card-body card-body-login">
-<div className="form-group">
-  <label htmlFor="email" style={{color:"white"}}>Email:</label>
-  <input type="email" className="form-control" id="email" value={email} onChange={(e)=>saveValues(e)}/>
-</div>
-<div className="form-group">
-  <label htmlFor="password" style={{color:"white"}}>Password:</label>
-  <input type="password" className="form-control" id="password" value={password} onChange={(e)=>saveValues(e)}/>
-</div>
-<div className="form-group">
-      <button id="Login" className="btn btn-primary" onClick={()=>loginApiCall()}>Login</button></div>
-      {/* <button id="Login" className="btn btn-primary" onClick={()=>check()}>check</button> */}
-      <a href="/Register" >Not Register? Create an account</a>
+      <Card style={{minWidth:"340px",    borderRadius: "10px"}}>
+      
+      <Form>
+      <div style={{display:"flex",marginBottom:"25px"}} >
+        <img  alt="music-logo" style={{width:"60px",height:"60px"}} src={`${process.env.PUBLIC_URL}/music_logo.png`}/>
+     <span style={{fontSize:"16px",margin:"15px 15px 15px 10px"}}>play</span>
       </div>
-     
+        <Form.Item>
+          
+            <Input size="large"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Email" value={email} onChange={(e)=>saveValues(e)} id="email"
+            />
+        </Form.Item>
+        <Form.Item>
+          
+            <Input.Password size="large"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              onPressEnter={()=>loginApiCall()}
+              placeholder="Password" value={password} onChange={(e)=>saveValues(e)} id="password"
+            />
+        </Form.Item>
+        <Form.Item>
+         
+          <Button type="primary" onClick={()=>loginApiCall()} className="login-form-button">
+            Log in
+          </Button>
+          <div>
+         <div style={{display:"flex",justifyContent:"center"}}><span 
+        >or</span></div>
+         <div style={{display:"flex",justifyContent:"center"}}><Button style={{backgroundColor:"#3b5998",borderColor:"#3b5998",color:"white"}}id="Login" onClick={()=>loginFacebook()} className="btn btn-primary" >
+       Login with Facebook 
+      </Button></div> 
+      </div> 
+      <div style={{display:"flex",justifyContent:"center"}}><a href="/Register" >Not Register? Create an account</a></div>
       
-      
-
-    </div>
-      {/* </div>
-    <div className"col-sm-4"></div> */}
+          
+        </Form.Item>
+      </Form> 
+      </Card>
       
     </div>
   );
 }
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
 
-export default Login;
+export default WrappedNormalLoginForm;

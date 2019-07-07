@@ -23,12 +23,19 @@ app.use(session({
 app.post("/onLogin",upload.none(),
  passport.authenticate('local', {
 failureRedirect: '/error' }),function(req, res) {
-    
-    res.send(req.user)
+  res.send({"success":true,id:req.user.id,message:"Login success"})
 })
 
 app.get("/successRedirect",(req,res)=>{
     res.send(req.user)
 })
+app.get('/authfacebook',passport.authenticate('facebook',{session:false}, {
+  failureRedirect: '/error' }),function(req, res) {
+    
+  res.send(req.user)
+});
+
+
+
 
 module.exports=app;
