@@ -68,4 +68,20 @@ export default App;
 //   /* background-color: #000; */
 //   background:rgba(0, 0, 0, 0.92)
 // }
-// //.spi
+// //.spinner {
+//   /* top: calc((90%-7%)/2);
+//   left: calc((90%-7%)/2); */
+//   position: absolute;
+//   z-index: 100000;
+//   opacity: 1;
+// }
+
+// .spinner.hide {
+//   display: none;
+// }
+// .spinnerLayout{
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index:100000!important;
+// }
