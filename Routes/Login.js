@@ -26,10 +26,10 @@ failureRedirect: '/error' }),function(req, res) {
   res.send({"success":true,id:req.user.id,message:"Login success"})
 })
 
-app.get("/successRedirect",(req,res)=>{
+app.get("/login/auth/facebook/callback",(req,res)=>{
     res.send(req.user)
 })
-app.get('/authfacebook',passport.authenticate('facebook'
+app.get('/auth/facebook',passport.authenticate('facebook'
 // , { scope : ['email'] }
 , {
   failureRedirect: '/error' }),function(req, res) {
