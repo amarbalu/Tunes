@@ -29,7 +29,9 @@ failureRedirect: '/error' }),function(req, res) {
 app.get("/successRedirect",(req,res)=>{
     res.send(req.user)
 })
-app.get('/authfacebook',passport.authenticate('facebook', { scope : ['email'] }, {
+app.get('/authfacebook',passport.authenticate('facebook'
+// , { scope : ['email'] }
+, {
   failureRedirect: '/error' }),function(req, res) {
     
   res.send(req.user)
