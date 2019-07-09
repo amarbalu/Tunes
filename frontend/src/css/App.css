@@ -19,6 +19,7 @@
   color: white;
 }
 
+
 .App-link {
   color: #61dafb;
 }
@@ -30,4 +31,36 @@
   to {
     transform: rotate(360deg);
   }
+}
+.spinner-back.show {
+  opacity: .5!important;
+}
+
+.spinner-back.fade {
+  opacity: 0;
+}
+
+.spinner-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background:rgba(0, 0, 0, 0.92)
+}
+.spinner {
+  position: absolute;
+  z-index: 100000;
+  opacity: 1;
+}
+
+.spinner.hide {
+  display: none;
+}
+.spinnerLayout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index:100000!important;
 }
