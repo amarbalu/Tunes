@@ -2,6 +2,7 @@ const localStrategy=require('passport-local').Strategy;
 const FacebookStrategy  =     require('passport-facebook').Strategy;
 const bcrypt=require('bcrypt');
 const {User}=require('../collections/UserCollection');
+const config =require('./passport.config')
 
 
 
@@ -17,7 +18,7 @@ module.exports=function(passport){
     
 
     
-    passport.use('local',
+    passport.use(
         new localStrategy({usernameField:"email"},(email,password,done)=>{
            //Match User
            
@@ -45,41 +46,26 @@ module.exports=function(passport){
             ).catch(err=>console.log(err));  
         })
     ) 
-    passport.use('facebook',new FacebookStrategy({
-        clientID: "1592180007582994",
-        clientSecret:"05c00660a94a32b98b38392e003ce1dfa" ,
-        callbackURL: "/login/authfacebook/callback"
+    passport.use(new FacebookStrategy({
+        clientID: config.facebook_api_key,
+        clientSecret:config.facebook_api_secret ,
+        callbackURL: config.callback_url
       },
       function(accessToken, refreshToken, profile, done) {
-          try{
-
-              process.nextTick(function () {
-          //Check whether the User exists or not using profile.id
-          Register.findOne({email:profile.id}).then(
-            user=>{
+        return(done,profile)
+        //   try{
+        //   User.findOne({email:profile.id}).then(
+        //     user=>{
                 
-                if(!user){
-                    return done(null,false,{message:"Email is not registered"});
-                }else{
-                    return(done,profile)
-                }
-        });
-      })
-          }catch(ex){
-            console.log(ex)
-          }
-    //     process.nextTick(function () {
-    //       //Check whether the User exists or not using profile.id
-    //       Register.findOne({email:profile.id}).then(
-    //         user=>{
-                
-    //             if(!user){
-    //                 return done(null,false,{message:"Email is not registered"});
-    //             }else{
-    //                 return(done,user)
-    //             }
-    //     });
-    //   })
+        //         if(!user){
+        //             return done(null,false,{message:"Email is not registered"});
+        //         }else{
+        //             return(done,profile)
+        //         }
+        // });
+        //   }catch(ex){
+        //     console.log(ex)
+        //   }
     }));
        
 } 
