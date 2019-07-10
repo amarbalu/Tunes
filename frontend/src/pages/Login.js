@@ -12,7 +12,7 @@ const Login=(props)=> {
     const[helpEmail,setHelpEmail]=useState("");
     const[helpPassword,setHelpPassword]=useState("");
 const loginApiCall=()=>{
-  if(!helpEmail && !helpPassword){
+  if(!helpEmail && !helpPassword && email && password){
   props.loading_action(true);
   const formData=new FormData();
   formData.append("password",password);

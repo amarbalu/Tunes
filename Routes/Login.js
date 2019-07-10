@@ -26,16 +26,16 @@ failureRedirect: '/error' }),function(req, res) {
   res.send({"success":true,id:req.user.id,message:"Login success"})
 })
 
-app.get("/login/auth/facebook/callback",(req,res)=>{
-    res.send(req.user)
-})
-app.get('/auth/facebook',passport.authenticate('facebook'
+app.get("/auth/facebook/callback",passport.authenticate('facebook'
 // , { scope : ['email'] }
 , {
   failureRedirect: '/error' }),function(req, res) {
     
   res.send(req.user)
 });
+app.get('/auth/facebook',passport.authenticate('facebook'
+
+));
 
 
 

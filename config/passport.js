@@ -52,6 +52,7 @@ module.exports=function(passport){
         callbackURL: config.callback_url
       },
       function(accessToken, refreshToken, profile, done) {
+          console.log(profile);
         return(done,profile)
         //   try{
         //   User.findOne({email:profile.id}).then(
