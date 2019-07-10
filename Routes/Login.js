@@ -28,8 +28,7 @@ failureRedirect: '/error' }),function(req, res) {
 
 app.get("/auth/facebook/callback",passport.authenticate('facebook'
 // , { scope : ['email'] }
-, {
-  failureRedirect: '/error' }),function(req, res) {
+, {failureRedirect: '/error' }),function(req, res) {
     
   res.send(req.user)
 });

@@ -22,13 +22,13 @@ const Dashboard=(props)=>{
 
     const songSelected=(id,filename)=>{
       // http://localhost:4000
-    setAudioSrc(`
+    setAudioSrc(`${process.env.REACT_APP_API_URL}
     /music/files/${filename}`)
     }
 
     const onLogout=()=>{
       // http://localhost:4000
-        fetch(`
+        fetch(`${process.env.REACT_APP_API_URL}
         /logout`,{
         method:"GET"
     }).then(res=>{

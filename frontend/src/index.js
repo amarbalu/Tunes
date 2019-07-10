@@ -6,11 +6,9 @@ import 'antd/dist/antd.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from './Reducer/rootReducer';
-// import "@babel/polyfill";
-// require('es6-object-assign').polyfill();
-// require("es6-promise").polyfill();
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+require('dotenv').config({path: __dirname + '/.env'})
 const store=createStore(rootReducer);
 ReactDOM.render(
 <Provider store={store}>
