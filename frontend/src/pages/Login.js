@@ -87,7 +87,7 @@ const changeValues=(e)=>{
     
   return (
     <div className="row" id="login">
-      <Card style={{minWidth:"340px"}}>
+      <Card style={{width:"45vh"}}>
       
       <Form>
       <div style={{display:"flex",marginBottom:"25px"}} >
