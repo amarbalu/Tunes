@@ -75,16 +75,20 @@ app.post('/upload',uploadFile.single('file'), (req, res) => {
     // });
 });
 
-app.get('/files',async(req,res)=>{
+app.get('/files',(req,res)=>{
+try{
+  gfs.files.find().toArray((err,files)=>{
+     if(!files || files.length === 0){
+         return res.json({
+             err:"No files exists"
+         }) 
+     }
+     return res.json(files);
+ }) 
 
-    await gfs.files.find().toArray((err,files)=>{
-        if(!files || files.length === 0){
-            return res.json({
-                err:"No files exists"
-            }) 
-        }
-        return res.json(files);
-    }) 
+}catch(ex){
+  console.log(ex)
+}
 })
 app.get('/files/:filename',async(req,res)=>{
 const filename=req.params.filename;

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { Card, Icon, Avatar } from 'antd';
+import { Card, Icon, Avatar,Col,Row } from 'antd';
 
 
 const SongsList=(props)=>{
@@ -7,10 +7,9 @@ const SongsList=(props)=>{
     
 const { Meta } = Card;
     useEffect(()=>{
-        // http://localhost:4000
-        fetch('/music/files',{
+        
+        fetch(`${process.env.REACT_APP_API_URL}/music/files`,{
             method:"GET",
-            // credentials: 'include'
         }).then(function(res){ 
             return res.json() }).then(res=>{
                 
@@ -22,18 +21,23 @@ const { Meta } = Card;
     },[])
     return(
         <React.Fragment>
+            <Row>
+                
         {songs.map((value,index)=>
-
+            <Col lg={12} xs={21} xl={8}> 
         <Card keys={index} 
-    style={{ width: 300 }} onClick={()=>props.songSelected(value._id,value.filename)}
+    onClick={()=>props.songSelected(value._id,value.filename)}
   >
     <Meta
       avatar={<Avatar src={require("../images/song_logo.png")} />}
       title={value.filename}
       description={value.chunkSize}
     />
-  </Card> 
+  </Card>
+  </Col> 
         )}
+        
+        </Row>
         </React.Fragment>
     )
 }

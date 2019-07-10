@@ -7,7 +7,7 @@ const UploadLibrary=(props)=>{
     const propsValue = {
         name: 'file',
         multiple: true,
-        action: '/music/upload',
+        action: `${process.env.REACT_APP_API_URL}/music/upload`,
         onChange(info) {
           
           if(info.type=== "audio/mp3"){

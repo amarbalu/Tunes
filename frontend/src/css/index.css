@@ -22,8 +22,8 @@ code {
 }
 #login{
   height:100%;
-  //background-image: url(../images/city-backg-2.jpg);
- background-color:#e6e6e6;
+  background-image: url(../images/city-backg-2.jpg);
+ /* background-color:#e6e6e6; */
  background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -61,7 +61,19 @@ min-width: 300px;
   margin-right: 60px;
   width:100%
 }
-
+ .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected{
+     background-color: #4d688a !important;
+   }
+   .ant-menu-dark.ant-menu-inline .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical-left .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical-right .ant-menu-item::after{
+     background-color: #1890ff;
+      width: 5px
+  }
+   @media only screen and (min-width: 500px) {
+    .sidebar{
+      width:calc(100% - 200px);
+   position: relative;
+   left:200px;
+    }}
 @media only screen and (max-width:568px){
   .card-width{
     margin-right: 30px
