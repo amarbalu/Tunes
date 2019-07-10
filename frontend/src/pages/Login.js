@@ -87,12 +87,12 @@ const changeValues=(e)=>{
     
   return (
     <div className="row" id="login">
-      <Card style={{minWidth:"340px",    borderRadius: "10px"}}>
+      <Card style={{minWidth:"340px"}}>
       
       <Form>
       <div style={{display:"flex",marginBottom:"25px"}} >
-        <img  alt="music-logo" style={{width:"60px",height:"60px"}} src={`${process.env.PUBLIC_URL}/music_logo.png`}/>
-     <span style={{fontSize:"16px",margin:"15px 15px 15px 10px"}}>play</span>
+        <img  alt="music-logo" style={{width:"40px",height:"40px"}} src={`${process.env.PUBLIC_URL}/music_logo.png`}/>
+     <span style={{fontSize:"20px"}}>Tunes</span>
       </div>
         <Form.Item validateStatus={validateStatusEmail} help={helpEmail} >
           
