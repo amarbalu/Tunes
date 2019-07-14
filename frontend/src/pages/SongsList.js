@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { Card, Icon, Avatar,Col,Row } from 'antd';
+import { Card, Avatar,Col,Row } from 'antd';
 
 
 const SongsList=(props)=>{

@@ -74,8 +74,10 @@ min-width: 300px;
    position: relative;
    left:200px;
     }}
+    
 @media only screen and (max-width:568px){
   .card-width{
     margin-right: 30px
   }
+  
 }

@@ -37,7 +37,7 @@ const App=(props)=> {
    
 <Switch>
  {routes.map((props, index) =>
- <Route exact path={props.path} component={props.component}/>)}
+ <Route exact key={props.path} path={props.path} component={props.component}/>)}
  
     
 

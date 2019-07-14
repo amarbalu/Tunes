@@ -3,7 +3,7 @@ import Service from '../Service/LoginService'
 import '../css/App.css';
 import {connect} from 'react-redux';
 
-import {Card,Form, Icon, Input, Button} from 'antd';
+import {Card,Form, Icon, Input, Button, message} from 'antd';
 const Login=(props)=> {
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
@@ -18,9 +18,13 @@ const loginApiCall=()=>{
   formData.append("password",password);
   formData.append("email",email);
   Service.onLogin(formData).then(response =>{ if(response.success){
-    props.loading_action(false);
+    
   props.history.push("/dashboard")
-  }}).catch(err=>console.log("err"+err));
+  }else{
+    message.error(response.message);
+  }
+  props.loading_action(false);
+}).catch(err=>console.log("err"+err));
 }
 }
 const loginFacebook=()=>{

@@ -1,4 +1,11 @@
 .ant-card-body{
     padding:20px!important;
 }
-
+@media only screen and (max-width:575px){
+    .registerForm.ant-form-item-label{
+      width:null !important;
+    }
+    .registerForm.ant-form-item-control-wrapper{
+        width:null!important;
+    }
+  }

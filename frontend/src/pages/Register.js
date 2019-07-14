@@ -5,16 +5,9 @@ import '../css/App.css';
 import {
   Form,
   Input,
-  Tooltip,
-  Icon,
-  Cascader,
-  Select,
-  Row,
-  Col,
   Checkbox,
   Button,
-  Card,
-  AutoComplete,
+  Card
 } from 'antd'
 
 
@@ -26,18 +19,18 @@ const Register=()=> {
     const[phoneNumber,setPhoneNumber]=useState("");
     const formItemLayout = {
       labelCol: {
-        xs: { span: 24 },
+        xs: { span: 8 },
         sm: { span: 10 },
       },
       wrapperCol: {
-        xs: { span: 24 },
+        xs: { span: 16 },
         sm: { span: 14 },
       },
     };
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
-          span: 24,
+          span: 12,
           offset: 0,
         },
         sm: {
@@ -90,34 +83,34 @@ setPhoneNumber("");
     <div className="row" id="register">
       <div className="col-1 col-xl-6"></div>
       <div className=" col-11 col-xl-6" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-      <Card style={{   borderRadius: "10px"}} title="Register">
-      <Form {...formItemLayout}  >
+      <Card  title="Register">
+      <Form className="registerForm" >
       <Form.Item
-          label="Username"
-          colon={false}
+          label="Username" 
+          colon={false} {...formItemLayout} 
         >
           <Input  placeholder="username" id="username" onChange={(e)=>saveValues(e)} value={username}/>
         </Form.Item>
-        <Form.Item label="E-mail" colon={false}>
+        <Form.Item label="E-mail" colon={false} {...formItemLayout} >
           <Input placeholder="email" id="email" onChange={(e)=>saveValues(e)} value={email}/>
         </Form.Item>
-        <Form.Item label="Password" hasFeedback colon={false}>
+        <Form.Item label="Password" hasFeedback colon={false} {...formItemLayout} >
           <Input.Password placeholder="password" id="password" onChange={(e)=>saveValues(e)} value={password}/>
         </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback colon={false}>
+        <Form.Item label="Confirm Password" hasFeedback colon={false}{...formItemLayout} >
          <Input.Password placeholder="confirm password" id="confirmPassword" onChange={(e)=>saveValues(e)} value={confirmPassword} />
         </Form.Item>
         
         
-        <Form.Item label="Phone Number"  colon={false}>
+        <Form.Item label="Phone Number"  colon={false} {...formItemLayout} >
           <Input  style={{ width: '100%' }} placeholder="phone number" id="phoneNumber" value={phoneNumber} onChange={(e)=>saveValues(e)} />
         </Form.Item>
        
         
-        <Form.Item  {...tailFormItemLayout} colon={false}>
+        <Form.Item  {...tailFormItemLayout} colon={false} {...formItemLayout} >
           
             <Checkbox>
-              I have read the <a href="">agreement</a>
+              I have read the agreement
             </Checkbox>,
           
         </Form.Item>

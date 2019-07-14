@@ -22,10 +22,12 @@ app.use(session({
 
 app.post("/onLogin",upload.none(),
  passport.authenticate('local', {
-failureRedirect: '/error' }),function(req, res) {
+failureRedirect: '/login/error' }),function(req, res) {
   res.send({"success":true,id:req.user.id,message:"Login success"})
 })
-
+app.get('/error',(req,res)=>{
+  res.send({"success":false,message:"Invalid Crendentials"})
+})
 app.get("/auth/facebook/callback",passport.authenticate('facebook'
 // , { scope : ['email'] }
 , {failureRedirect: '/error' }),function(req, res) {
