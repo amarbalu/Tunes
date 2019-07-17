@@ -19,7 +19,10 @@ app.use(session({
     saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
-
+ const myLogger = function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next()
+  }
 app.post("/onLogin",upload.none(),
  passport.authenticate('local', {
 failureRedirect: '/login/error' }),function(req, res) {
@@ -34,7 +37,7 @@ app.get("/auth/facebook/callback",passport.authenticate('facebook'
     
   res.send(req.user)
 });
-app.get('/auth/facebook',passport.authenticate('facebook'
+app.get('/auth/facebook',myLogger,passport.authenticate('facebook'
 
 ));
 
