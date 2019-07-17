@@ -20,7 +20,7 @@ app.use(session({
   app.use(passport.initialize());
   app.use(passport.session());
  const myLogger = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "https://tunesmusic.herokuapp.com");
     next()
   }
 app.post("/onLogin",upload.none(),
