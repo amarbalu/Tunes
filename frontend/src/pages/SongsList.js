@@ -3,6 +3,7 @@ import { Card,Col,Row } from 'antd';
 import atob from 'atob';
 
 
+
 const SongsList=(props)=>{
     const [songs,setSongs]=useState([]);
     
@@ -30,11 +31,11 @@ const { Meta } = Card;
         hoverable
         
         cover={<img alt="cover" src={'data:image/jpeg;base64,' +value.metadata.common.picture[0].data}/>} 
-    onClick={()=>props.songSelected(value._id,value.filename)}
+    onClick={()=>props.songSelected(value._id,value.filename,value.metadata)}
   >
     <Meta
      
-      title={atob(value.filename)}
+      title={value.metadata.common.title.split("::")[0]}
       description={value.metadata.common.composer.toString()}
     />
   </Card>
@@ -46,4 +47,4 @@ const { Meta } = Card;
     )
 }
 
-export default SongsList
+export default SongsList;

@@ -3,6 +3,7 @@ import { Layout, Menu, Icon,Row, Col  } from 'antd';
 import SongsList from './SongsList.js';
 import Upload from './Upload.js';
 import FooterComp from './Footer.js';
+import {connect} from'react-redux'
 
 
 const Dashboard=(props)=>{
@@ -16,7 +17,8 @@ const Dashboard=(props)=>{
       setMenuKeys(item.key)
     }
 
-    const songSelected=(id,filename)=>{
+    const songSelected=(id,filename,metadata)=>{
+      props.loading_music(metadata);
     setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${filename}`)
     }
 
@@ -123,7 +125,7 @@ return (
       <Content style={{margin:"15px"}} >
         <div style={{ background: '#fff', minHeight: 360 }}>
         {menuKeys==="add"?<Upload/>:null}
-            {menuKeys==="songs"?<SongsList songSelected={(id,filename)=>songSelected(id,filename)}/>:null}
+            {menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
         </div>
       </Content>
       </div>
@@ -147,5 +149,14 @@ return (
   
 );
 }
-
-export default Dashboard;
+const mapDispatchToProps=dispatch=>{
+  return{
+    loading_music:(value)=>{
+      dispatch({
+        type:"LOAD_MUSIC",
+        metadata:value
+      })
+    }
+  }
+}
+export default connect(null,mapDispatchToProps)(Dashboard);

@@ -1,21 +1,44 @@
 import React,{useRef} from 'react';
-import {Layout,Row, Col,Icon } from 'antd';
+import {Layout,Row, Col,Icon,Card} from 'antd';
 import useAudioPlayer from './useAudioPlayer';
 import Bar from './AudioBar.js';
+import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
- 
-
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
-        bottom: "0px",padding:"12px"}}>
+        bottom: "0px",padding:"12px",display:props.metadata?"block":"none"}}>
           <Row type="flex">
-          
-          <Col xs={24} sm={{span:16,offset:8}}>
+          <Col xs={12} sm={8}>
+            <Row>
+              <Col span={6}>
+          <Card
+    hoverable
+    style={{ width: "40px" ,height:"40px"}}
+    cover={<img alt="song" src={props.metadata?'data:image/jpeg;base64,' +props.metadata.common.picture[0].data:null} />}
+  >
+  </Card>
+  </Col>
+
+  <Col span={18}>
+    <div>
+  <span style={{display:'flex',fontWeight:'bold'}}>
+  {props.metadata?props.metadata.common.title.split("::")[0]:null}
+  </span>
+  </div>
+  <div>
+  <span style={{display:'flex'}}>
+   {props.metadata?props.metadata.common.composer.toString():null}
+  </span>
+  </div>
+  </Col>
+  </Row>
+          </Col>
+          <Col xs={12} sm={{span:16}}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
           {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)}} />:
@@ -29,4 +52,9 @@ const FooterComp=(props)=>{
           </Footer>
     )
 }
-export default FooterComp
+const mapStateToProps=state=>{
+  return{
+    metadata:state.musicReducer.metadata
+  }
+}
+export default connect(mapStateToProps, null)(FooterComp)
