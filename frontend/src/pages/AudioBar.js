@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 import { Progress } from 'antd';
-import momentDurationFormatSetup from "moment-duration-format";
 import '../css/styles.css'
 
 export default function Bar(props) {

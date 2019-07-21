@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { Card, Avatar,Col,Row } from 'antd';
+import { Card,Col,Row } from 'antd';
 import atob from 'atob';
 
 

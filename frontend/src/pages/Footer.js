@@ -1,4 +1,4 @@
-import React,{useRef,useState,useEffect} from 'react';
+import React,{useRef} from 'react';
 import {Layout,Row, Col,Icon } from 'antd';
 import useAudioPlayer from './useAudioPlayer';
 import Bar from './AudioBar.js';

@@ -6,7 +6,7 @@ import FooterComp from './Footer.js';
 
 
 const Dashboard=(props)=>{
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content, Sider } = Layout;
     const [menuKeys,setMenuKeys]=useState("");
     const [audioSrc,setAudioSrc]=useState("");
   
