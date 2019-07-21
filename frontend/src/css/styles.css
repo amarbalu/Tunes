@@ -1,0 +1,58 @@
+/* @import url("https://fonts.googleapis.com/css?family=Permanent+Marker|Rock+Salt"); */
+
+
+
+
+
+  
+  .bar {
+    user-select: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+    /* .bar.bar__time {
+      color: white;
+      font-size: 16px;
+    } */
+
+    .bar__progress {
+      flex: 1;
+      border-radius: 5px;
+      margin: 0 20px;
+      height: 10px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .bar__progress.bar__progress__knob {
+        position: relative;
+        height: 16px;
+        width: 16px;
+        border: 1.5px solid white;
+        border-radius: 50%;
+        background-color: orange;
+      }
+    
+
+
+  @media screen and (max-width: 800px) {
+    
+
+    .controls {
+      width: 100%;
+      margin-top: 20px;
+      flex-direction: column;
+    }
+
+    .bar {
+      width: 90%;
+      /* flex-direction: column; */
+    }
+  }
+  .ant-progress-line{
+    width:50%!important
+  }
+
+  
+/* } */

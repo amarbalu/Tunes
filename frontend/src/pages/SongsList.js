@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { Card, Avatar,Col,Row } from 'antd';
+import atob from 'atob';
 
 
 const SongsList=(props)=>{
@@ -21,17 +22,20 @@ const { Meta } = Card;
     },[])
     return(
         <React.Fragment>
-            <Row>
+            <Row gutter={32}>
                 
         {songs.map((value,index)=>
-            <Col lg={12} xs={21} xl={8}> 
-        <Card keys={index} 
+            <Col key={index} lg={6} xs={12} xl={4}> 
+        <Card  
+        hoverable
+        
+        cover={<img alt="cover" src={'data:image/jpeg;base64,' +value.metadata.common.picture[0].data}/>} 
     onClick={()=>props.songSelected(value._id,value.filename)}
   >
     <Meta
-      avatar={<Avatar src={require("../images/song_logo.png")} />}
-      title={value.filename}
-      description={value.chunkSize}
+     
+      title={atob(value.filename)}
+      description={value.metadata.common.composer.toString()}
     />
   </Card>
   </Col> 

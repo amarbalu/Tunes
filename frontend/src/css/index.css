@@ -68,12 +68,23 @@ min-width: 300px;
      background-color: #1890ff;
       width: 5px
   }
+  .sidebar-menu{
+    height:calc(100% - 132px);
+     
+    
+  }
    @media only screen and (min-width: 500px) {
     .sidebar{
-      width:calc(100% - 200px);
+      width:calc(100% - 201px);
+     
    position: relative;
    left:200px;
-    }}
+    }
+    .sidebar-menu{
+      height:calc(100% - 132px);
+      
+    }
+  }
     
 @media only screen and (max-width:568px){
   .card-width{

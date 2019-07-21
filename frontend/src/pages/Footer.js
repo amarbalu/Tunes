@@ -1,29 +1,27 @@
-import React,{useRef} from 'react';
-import {Layout,Row, Col  } from 'antd';
-
+import React,{useRef,useState,useEffect} from 'react';
+import {Layout,Row, Col,Icon } from 'antd';
+import useAudioPlayer from './useAudioPlayer';
+import Bar from './AudioBar.js';
 
 const FooterComp=(props)=>{
+  const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
-    const playFunc=()=>{
-         player.current.play()
-    }
+ 
+
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
-        bottom: "0",padding:"12px"}}>
-          <Row>
-          <Col xl={6}>
-            
-            </Col>
-          <Col xl={18}>
-          <audio ref={player} autoPlay controls  src={props.audioSrc}   />
-          {/* <div> 
-  <button onClick={playFunc}>Play</button> 
-  <button onClick={()=>{ player.current.pause()}}>Pause</button> 
-  <button onClick={()=>{ player.current.pause()}}>Vol +</button> 
-  <button onClick={()=>{ player.current.pause()}}>Vol -</button> 
-</div> */}
+        bottom: "0px",padding:"12px"}}>
+          <Row type="flex">
+          
+          <Col xs={24} sm={{span:16,offset:8}}>
+          <audio id="audio" ref={player} src={props.audioSrc}   />
+          <div style={{display:"flex"}}> 
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)}} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{setPlaying(false)}}/>}
+   <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
+</div>
           </Col>
           
         </Row>

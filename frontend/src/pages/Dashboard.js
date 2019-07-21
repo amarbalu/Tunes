@@ -1,14 +1,14 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { Layout, Menu, Icon,Row, Col  } from 'antd';
 import SongsList from './SongsList.js';
-import Upload from './Upload.js'
+import Upload from './Upload.js';
+import FooterComp from './Footer.js';
 
 
 const Dashboard=(props)=>{
     const { Header, Content, Footer, Sider } = Layout;
     const [menuKeys,setMenuKeys]=useState("");
     const [audioSrc,setAudioSrc]=useState("");
-    const [collapsible,setCollapible]=useState(window.innerWidth<480);
   
    
 
@@ -17,13 +17,11 @@ const Dashboard=(props)=>{
     }
 
     const songSelected=(id,filename)=>{
-    setAudioSrc(`${process.env.REACT_APP_API_URL}
-    /music/files/${filename}`)
+    setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${filename}`)
     }
 
     const onLogout=()=>{
-        fetch(`${process.env.REACT_APP_API_URL}
-        /logout`,{
+        fetch(`${process.env.REACT_APP_API_URL}/logout`,{
         method:"GET"
     }).then(res=>{
             return res.json()
@@ -74,16 +72,17 @@ return (
       </Col>
     </Row>
     </Header>
-    <div style={{    height: "calc(100% - 64px)",
+    <div style={{    height: "calc(100% - 100px)",
     display: "flex",position:"relative",top:"64px"
 
 }}>
       <div>
     <Sider
-      breakpoint="xs"
+      breakpoint="sm"
       collapsedWidth="0"
-      style={{height:"100%"
-      ,position:"fixed"
+      className="sidebar-menu"
+      style={{
+      position:"fixed"
       ,left:"0",zIndex:"1000"
     }}
     >
@@ -121,29 +120,29 @@ return (
     </Sider>
     </div>
     <div className="sidebar">
-      <Content style={{ margin: '24px 16px 0' }}>
-        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+      <Content style={{margin:"15px"}} >
+        <div style={{ background: '#fff', minHeight: 360 }}>
         {menuKeys==="add"?<Upload/>:null}
             {menuKeys==="songs"?<SongsList songSelected={(id,filename)=>songSelected(id,filename)}/>:null}
         </div>
       </Content>
       </div>
     </div>
-      <Footer style={{ textAlign: 'center',position: "fixed",
+      {/* <Footer style={{ textAlign: 'center',position: "fixed",
     width: "100%",
     bottom: "0",padding:"12px"}}>
       <Row>
       <Col xl={6}>
         
         </Col>
-      <Col xl={18}>
-      <audio  controls src={audioSrc}   autoPlay/>
-      
-      </Col>
+      <Col xl={18}> */}
+      {/* <audio  controls src={audioSrc}   autoPlay/> */}
+      <FooterComp audioSrc={audioSrc}/>
+      {/* </Col>
       
     </Row>
       
-      </Footer>
+      </Footer> */}
   </div>
   
 );

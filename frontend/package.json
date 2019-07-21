@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "antd": "^3.20.0",
+    "atob": "^2.1.2",
     "babel-polyfill": "^6.26.0",
     "connect-flash": "^0.1.1",
     "dotenv": "^8.0.0",
@@ -12,6 +13,7 @@
     "es6-promise": "^4.2.6",
     "express-session": "^1.16.2",
     "history": "^4.9.0",
+    "moment-duration-format": "^2.3.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react": "^16.8.6",

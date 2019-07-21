@@ -7,7 +7,8 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const dbConfig = require('../config/database.config.js');
 const crypto=require('crypto')
-const path=require('path');
+const mm = require('music-metadata');
+const btoa=require('btoa')
 const conn = mongoose.createConnection(dbConfig.url,
     {
         useNewUrlParser: true
@@ -41,19 +42,29 @@ let storage = GridFsStorage({
         useNewUrlParser: true
       },
       file: (req, file) => {
+       
         return new Promise((resolve, reject) => {
-          crypto.randomBytes(16, (err, buf) => {
-            if (err) {
-              return reject(err)
+          // crypto.randomBytes(16, (err, buf) => {
+          //   if (err) {
+          //     return reject(err)
+          //   }
+            const filename = btoa(file.originalname)
+            gfs.files.findOne({filename:filename}).then(file=>{
+             
+             if(!file){ const fileInfo = {
+                filename: filename,
+                metadata:{file:filename},
+                bucketName: 'uploads'
+              }
+              resolve(fileInfo)
+            }else{
+              reject("File already exists")
             }
-            const filename = file.originalname
-            // buf.toString('hex') + path.extname(file.originalname)
-            const fileInfo = {
-              filename: filename,
-              bucketName: 'uploads'
-            }
-            resolve(fileInfo)
-          })
+            })
+            // buf.toString('hex') + path.extname(file.originalname);
+            
+           
+          // })
         })
       }
 });
@@ -65,19 +76,31 @@ let uploadFile = multer({
 
 // Route for file upload
 app.post('/upload',uploadFile.single('file'), (req, res) => {
-    // uploadFile(req,res, (err) => {
-        // console.log(res)
-        // if(err){
-        //      res.json({status:"error",err_desc:err});
-        //      return;
-        // }
-        res.json({status:"done",name:req.file.filename, file_uploaded: true});
-    // });
+    
+  gfs.files.findOne({filename:req.file.filename}).then(file=>{
+    mm.parseStream(gfs.createReadStream(file),file.contentType,{fileSize:file.length}).then(
+    md=>{
+        
+        gfs.files.update(
+          {filename:file.filename},{
+            $set:{'metadata':md}
+          }
+        ).then(resp=>{if(resp.result.nModified===1){
+          res.json({status:"done",name:req.file.filename, file_uploaded: true});
+        }else{
+          res.sendStatus(500)
+        }
+      }
+    )
+  })
+        
+   
+});
 });
 
-app.get('/files',(req,res)=>{
+app.get('/files',async(req,res)=>{
 try{
-  gfs.files.find().toArray((err,files)=>{
+await  gfs.files.find().toArray((err,files)=>{
      if(!files || files.length === 0){
          return res.json({
              err:"No files exists"
