@@ -27,7 +27,7 @@ const UploadLibrary=(props)=>{
           if (!isMp3) {
             
            
-            message.error('You can only upload Mp3 file!');
+            message.error(`You can only upload Mp3 file!.File type ${file.type}`);
             // setFileList(fileList.filter(check =>check.uid !== file.uid))
           }
           return isMp3 
