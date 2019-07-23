@@ -23,7 +23,7 @@ const UploadLibrary=(props)=>{
         },
         beforeUpload(file,fileList) {
           
-          const isMp3 = file.type.indexOf("audio")>=0
+          const isMp3 = file.type.indexOf("audio")>=0 ||file.type===""application/octet-stream
           if (!isMp3) {
             
            
