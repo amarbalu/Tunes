@@ -36,7 +36,7 @@ const { Meta } = Card;
     <Meta
      
       title={value.metadata.common ? value.metadata.common.title.split("::")[0]:atob(value.filename)}
-      description={value.metadata.common ?value.metadata.common.composer.toString():null}
+      description={value.metadata.common && value.metadata.common.composer?value.metadata.common.composer.toString():null}
     />
   </Card>
   </Col> 
