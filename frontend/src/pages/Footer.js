@@ -32,7 +32,7 @@ const FooterComp=(props)=>{
   </div>
   <div>
   <span style={{display:'flex'}}>
-   {props.metadata && props.metadata.common?props.metadata.common.composer.toString():null}
+   {props.metadata && props.metadata.common && props.metadata.common.composer ?props.metadata.common.composer.toString():null}
   </span>
   </div>
   </Col>
