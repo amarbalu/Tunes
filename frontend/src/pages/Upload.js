@@ -18,7 +18,7 @@ const UploadLibrary=(props)=>{
             message.error(`${info.file.name} file upload failed.`);
           }
         
-          setFileList(fileList)
+          setFileList(fileList.filter(check=>check.type.indexOf("audio")>=0 ||check.type==="application/octet-stream"))
          
         },
         beforeUpload(file,fileList) {

@@ -30,13 +30,13 @@ const { Meta } = Card;
         <Card  
         hoverable
         
-        cover={<img alt="cover" src={'data:image/jpeg;base64,' +value.metadata.common.picture[0].data}/>} 
+        cover={<img alt="cover" src={value.metadata.common && value.metadata.common.picture?'data:image/jpeg;base64,' +value.metadata.common.picture[0].data:require('../images/song_logo.png')}/>} 
     onClick={()=>props.songSelected(value._id,value.filename,value.metadata)}
   >
     <Meta
      
-      title={value.metadata.common.title.split("::")[0]}
-      description={value.metadata.common.composer.toString()}
+      title={value.metadata.common ? value.metadata.common.title.split("::")[0]:atob(value.filename)}
+      description={value.metadata.common ?value.metadata.common.composer.toString():null}
     />
   </Card>
   </Col> 
