@@ -40,13 +40,13 @@ function useAudioPlayer() {
       audio.removeEventListener("timeupdate", setAudioTime);
     }
   });
-  useEffect(()=>{
-    const audio = document.getElementById("audio");
-    const setPlay=()=>setPlaying(true)
-    const setPause=()=>setPlaying(false)
-   !playing? audio.addEventListener("play", setPlay,false):
-    audio.addEventListener("pause", setPause,false)
-  },[playing])
+  // useEffect(()=>{
+  //   const audio = document.getElementById("audio");
+  //   const setPlay=()=>setPlaying(true)
+  //   const setPause=()=>setPlaying(false)
+  //  !playing? audio.addEventListener("play", setPlay,false):
+  //   audio.addEventListener("pause", setPause,false)
+  // },[playing])
 
   return {
     curTime,

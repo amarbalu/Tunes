@@ -8,6 +8,8 @@ const FooterComp=(props)=>{
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
+    const setPlay=()=>setPlaying(true)
+    const setPause=()=>setPlaying(false)
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
@@ -41,8 +43,16 @@ const FooterComp=(props)=>{
           <Col xs={12} sm={{span:16}}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
-          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)}} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{setPlaying(false)}}/>}
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)
+          const audio = document.getElementById("audio");
+            
+          audio.addEventListener("play", setPlay,false)
+          }} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{
+            setPlaying(false)
+            const audio = document.getElementById("audio");
+            
+           audio.addEventListener("play", setPlay,false)}}/>}
    <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
 </div>
           </Col>
