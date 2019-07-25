@@ -14,11 +14,15 @@ function useAudioPlayer() {
       setDuration(audio.duration);
       setCurTime(audio.currentTime);
     }
+    const setPlay=()=>setPlaying(true)
+    const setPause=()=>setPlaying(false)
 
     const setAudioTime = () => setCurTime(audio.currentTime);
 
     // DOM listeners: update React state on DOM events
     audio.addEventListener("loadeddata", setAudioData);
+    audio.addEventListener("play", setPlay);
+    audio.addEventListener("pause", setPause);
 
     audio.addEventListener("timeupdate", setAudioTime);
 
