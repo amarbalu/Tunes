@@ -46,7 +46,7 @@ const FooterComp=(props)=>{
           {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)
           const audio = document.getElementById("audio");
             
-          audio.addEventListener("play", setPlay,false)
+          audio.addEventListener("pause", setPause,false)
           }} />:
           <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{
             setPlaying(false)
