@@ -21,8 +21,8 @@ function useAudioPlayer() {
 
     // DOM listeners: update React state on DOM events
     audio.addEventListener("loadeddata", setAudioData);
-    audio.addEventListener("play", setPlay);
-    audio.addEventListener("pause", setPause);
+    audio.addEventListener("play", setPlay,false);
+    audio.addEventListener("pause", setPause,false);
 
     audio.addEventListener("timeupdate", setAudioTime);
 
