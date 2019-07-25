@@ -47,11 +47,12 @@ const FooterComp=(props)=>{
           const audio = document.getElementById("audio");
             
           audio.addEventListener("pause", setPause,false)
+audio.addEventListener("play", setPlay,false)
           }} />:
           <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{
             setPlaying(false)
             const audio = document.getElementById("audio");
-            
+            audio.addEventListener("pause", setPause,false)
            audio.addEventListener("play", setPlay,false)}}/>}
    <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
 </div>
