@@ -34,8 +34,10 @@ const { Meta } = Card;
     onClick={()=>props.songSelected(value._id,value.filename,value.metadata)}
   >
     <Meta
-     
-      title={value.metadata.common ? value.metadata.common.title.split("::")[0]:atob(value.filename)}
+     style={{ whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"}}
+      title={value.metadata.common ?  value.metadata.common.title.indexOf('::')>=0?value.metadata.common.title.split("::")[0]:value.metadata.common.title.split("-")[0]:atob(value.filename)}
       description={value.metadata.common && value.metadata.common.composer?value.metadata.common.composer.toString():null}
     />
   </Card>
