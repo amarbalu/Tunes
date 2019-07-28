@@ -10,10 +10,10 @@ const FooterComp=(props)=>{
     const player = useRef();
     useEffect(()=>{
     const audio = document.getElementById("audio");
-    audio.addEventListener("play", setPlay,false)
-    audio.addEventListener("pause", setPause,false)
-    const setPlay=()=>setPlaying(true)
-    const setPause=()=>setPlaying(false)
+    //audio.addEventListener("play", setPlay,false)
+    //audio.addEventListener("pause", setPause,false)
+    //const setPlay=()=>setPlaying(true)
+    //const setPause=()=>setPlaying(false)
     })
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
