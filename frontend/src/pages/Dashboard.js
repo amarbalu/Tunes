@@ -122,7 +122,7 @@ return (
     </Sider>
     </div>
     <div className="sidebar">
-      <Content style={{margin:"15px"}} >
+      <Content style={{margin:"15px",marginBottom:'52px'}} >
         <div style={{ background: '#fff', minHeight: 360 }}>
         {menuKeys==="add"?<Upload/>:null}
             {menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
