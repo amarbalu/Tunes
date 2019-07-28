@@ -13,8 +13,8 @@ const FooterComp=(props)=>{
  
   const setPlay=()=>{
     setPlaying(true);
-    audio.removeEventListener("play",setPlay,false);
-    // audio.addEventListener("pause",()=> setPause(),false)
+    //audio.removeEventListener("play",setPlay,false);
+     audio.addEventListener("pause",()=> setPause(),false)
   }
   const setPause=()=>{
     setPlaying(false)
