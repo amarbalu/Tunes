@@ -69,7 +69,7 @@ min-width: 300px;
       width: 5px
   }
   .sidebar-menu{
-    height:calc(100% - 132px);
+    height:calc(100% - 140px);
      
     
   }
@@ -81,7 +81,7 @@ min-width: 300px;
    left:200px;
     }
     .sidebar-menu{
-      height:calc(100% - 132px);
+      height:calc(100% - 140px);
       
     }
   }

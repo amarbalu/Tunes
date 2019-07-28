@@ -1,12 +1,13 @@
 import React from "react";
 import moment from "moment";
-
+import useAudioPlayer from './useAudioPlayer';
 import { Progress } from 'antd';
 import momentDurationFormatSetup from "moment-duration-format";
 import '../css/styles.css'
 
 export default function Bar(props) {
-  const { duration, curTime, onTimeUpdate } = props;
+  const { curTime, duration, setClickedTime } = useAudioPlayer();
+  // const { duration, curTime, onTimeUpdate } = props;
 
   const curPercentage = (curTime / duration) * 100;
 
@@ -27,10 +28,10 @@ export default function Bar(props) {
   }
 
   function handleTimeDrag(e) {
-    onTimeUpdate(calcClickedTime(e));
+    setClickedTime(calcClickedTime(e));
 
     const updateTimeOnMove = eMove => {
-      onTimeUpdate(calcClickedTime(eMove));
+      setClickedTime(calcClickedTime(eMove));
     };
 
     document.addEventListener("mousemove", updateTimeOnMove);

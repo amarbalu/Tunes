@@ -130,21 +130,7 @@ return (
       </Content>
       </div>
     </div>
-      {/* <Footer style={{ textAlign: 'center',position: "fixed",
-    width: "100%",
-    bottom: "0",padding:"12px"}}>
-      <Row>
-      <Col xl={6}>
-        
-        </Col>
-      <Col xl={18}> */}
-      {/* <audio  controls src={audioSrc}   autoPlay/> */}
       <FooterComp audioSrc={audioSrc}/>
-      {/* </Col>
-      
-    </Row>
-      
-      </Footer> */}
   </div>
   
 );

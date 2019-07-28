@@ -1,15 +1,20 @@
-import React,{useRef} from 'react';
+import React,{useRef, useEffect} from 'react';
 import {Layout,Row, Col,Icon,Card} from 'antd';
 import useAudioPlayer from './useAudioPlayer';
 import Bar from './AudioBar.js';
 import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
-  const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
+  const { playing, setPlaying } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
+    useEffect(()=>{
+    const audio = document.getElementById("audio");
+    audio.addEventListener("play", setPlay,false)
+    audio.addEventListener("pause", setPause,false)
     const setPlay=()=>setPlaying(true)
     const setPause=()=>setPlaying(false)
+    })
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
@@ -29,12 +34,12 @@ const FooterComp=(props)=>{
   <Col span={18}>
     <div>
   <span style={{display:'flex',fontWeight:'bold'}}>
-  {props.metadata&& props.metadata.common?props.metadata.common.title.split("::")[0]:props.metadata && props.metadata.filename?atob(props.metadata.filename):null}
+  <h6>{props.metadata&& props.metadata.common?props.metadata.common.title.split("::")[0]:props.metadata && props.metadata.filename?atob(props.metadata.filename):null}</h6>
   </span>
   </div>
   <div>
   <span style={{display:'flex'}}>
-   {props.metadata && props.metadata.common && props.metadata.common.composer ?props.metadata.common.composer.toString():null}
+   <h6>{props.metadata && props.metadata.common && props.metadata.common.composer ?props.metadata.common.composer.toString():null}</h6>
   </span>
   </div>
   </Col>
@@ -44,16 +49,11 @@ const FooterComp=(props)=>{
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
           {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)
-          const audio = document.getElementById("audio");
-            audio.removeEventListener("play",setPlay,false);
-          audio.addEventListener("pause", setPause,false)
           }} />:
           <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{
             setPlaying(false)
-            const audio = document.getElementById("audio");
-            audio.removeEventListener("pause",setPause,false);
-           audio.addEventListener("play", setPlay,false)}}/>}
-   <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
+           }}/>}
+   <Bar />
 </div>
           </Col>
           
