@@ -6,8 +6,7 @@ import momentDurationFormatSetup from "moment-duration-format";
 import '../css/styles.css'
 
 export default function Bar(props) {
-  const { curTime, duration, setClickedTime } = useAudioPlayer();
-  // const { duration, curTime, onTimeUpdate } = props;
+  const { duration, curTime, setClickedTime } = props;
 
   const curPercentage = (curTime / duration) * 100;
 

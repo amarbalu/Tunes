@@ -5,16 +5,23 @@ import Bar from './AudioBar.js';
 import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
-  const { playing, setPlaying } = useAudioPlayer();
+  const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
-    useEffect(()=>{
+   
     const audio = document.getElementById("audio");
-    //audio.addEventListener("play", setPlay,false)
-    //audio.addEventListener("pause", setPause,false)
-    //const setPlay=()=>setPlaying(true)
-    //const setPause=()=>setPlaying(false)
-    })
+ 
+  const setPlay=()=>{
+    setPlaying(true);
+    audio.addEventListener("pause", setPause,false)
+  audio.removeEventListener("play",setPlay);
+  }
+  const setPause=()=>{
+    setPlaying(false)
+    audio.addEventListener("play", setPlay,false);
+    audio.removeEventListener("pause",setPause);
+    
+  }
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
@@ -48,12 +55,9 @@ const FooterComp=(props)=>{
           <Col xs={12} sm={{span:16}}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
-          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>{setPlaying(true)
-          }} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>{
-            setPlaying(false)
-           }}/>}
-   <Bar />
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>setPlay()} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>setPause()}/>}
+   <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>
 </div>
           </Col>
           
