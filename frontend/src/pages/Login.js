@@ -121,9 +121,12 @@ const changeValues=(e)=>{
           <div>
          <div style={{display:"flex",justifyContent:"center"}}><span 
         >or</span></div>
-         <div style={{display:"flex",justifyContent:"center"}}><Button style={{backgroundColor:"#3b5998",borderColor:"#3b5998",color:"white"}}id="Login" onClick={()=>loginFacebook()} className="btn btn-primary" >
+         <div style={{display:"flex",justifyContent:"center"}}>
+           {/* <Button style={{backgroundColor:"#3b5998",borderColor:"#3b5998",color:"white"}}id="Login" onClick={()=>loginFacebook()} className="btn btn-primary" >
        Login with Facebook 
-      </Button></div> 
+      </Button> */}
+      <a href={`${process.env.REACT_APP_API_URL}/login/auth/facebook`}>Login with Facebook</a>
+      </div> 
       </div> 
       <div style={{display:"flex",justifyContent:"center"}}><a href="/Register" >Not Register? Create an account</a></div>
       
