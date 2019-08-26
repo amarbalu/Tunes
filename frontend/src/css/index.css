@@ -16,13 +16,19 @@ code {
 }
 #register{
   height:100%;
-  background-image: url(../images/blur_back_2.jpg);
+  background-image: url(../images/casette.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.homepageContent{
+  height:calc(100% - 64px);
+  background-image: url(../images/headphonesmob.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 #login{
   height:100%;
-  background-image: url(../images/city-backg-2.jpg);
+  background-image: url(../images/login.jpg);
  /* background-color:#e6e6e6; */
  background-repeat: no-repeat;
   background-size: cover;
@@ -62,7 +68,7 @@ min-width: 300px;
   width:100%
 }
  .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected{
-     background-color: #4d688a !important;
+     background-color: #090909 !important;
    }
    .ant-menu-dark.ant-menu-inline .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical-left .ant-menu-item::after, .ant-menu-dark.ant-menu-vertical-right .ant-menu-item::after{
      background-color: #1890ff;
@@ -91,4 +97,11 @@ min-width: 300px;
     margin-right: 30px
   }
   
+}@media only screen and (min-width:1100px){
+.homepageContent{
+  height:calc(100% - 64px);
+  background-image: url(../images/headphones.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 }

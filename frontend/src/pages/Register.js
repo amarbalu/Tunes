@@ -107,13 +107,13 @@ setPhoneNumber("");
         </Form.Item>
        
         
-        <Form.Item  {...tailFormItemLayout} colon={false} {...formItemLayout} >
+        {/* <Form.Item  {...tailFormItemLayout} colon={false} {...formItemLayout} >
           
             <Checkbox>
               I have read the agreement
             </Checkbox>,
           
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item {...tailFormItemLayout} colon={false}>
           <Button type="primary" onClick={()=>Register()}>
             Register

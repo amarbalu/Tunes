@@ -2,6 +2,7 @@
 import React from 'react';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Homepage from './pages/Homepage';
 import {BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {connect} from 'react-redux'
@@ -20,6 +21,7 @@ const routes=[
 
 ,
 {path:"/Dashboard",component:Dashboard},
+{path:"/Homepage",component:Homepage}
 ]
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
@@ -41,7 +43,7 @@ const App=(props)=> {
  
     
 
-    <Redirect to="/Login"></Redirect> 
+    <Redirect to="/Homepage"></Redirect> 
 </Switch>  
   </BrowserRouter>
  
