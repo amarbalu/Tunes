@@ -8,7 +8,7 @@ import {connect} from'react-redux'
 
 const Dashboard=(props)=>{
     const { Header, Content, Sider } = Layout;
-    const [menuKeys,setMenuKeys]=useState("");
+    const [menuKeys,setMenuKeys]=useState("songs");
     const [audioSrc,setAudioSrc]=useState("");
   
    
@@ -52,7 +52,7 @@ return (
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+      
         style={{ lineHeight: '64px' }}
       >
          <Menu.Item key="profile">Profile</Menu.Item>
@@ -89,11 +89,12 @@ return (
     }}
     >
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['home']}   onSelect={(item)=>menu(item)}>
-        <Menu.Item key="home">
+      <Menu theme="dark" mode="inline"  defaultSelectedKeys={['songs']}
+        defaultOpenKeys={['lib']}  onSelect={(item)=>menu(item)}>
+        {/* <Menu.Item key="home">
           <Icon type="home" theme="filled" />
           <span className="nav-text">Home</span>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="search">
           <Icon type="search" />
           <span className="nav-text">Search</span>

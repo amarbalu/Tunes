@@ -25,14 +25,16 @@ const FooterComp=(props)=>{
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
-        bottom: "0px",padding:"12px",display:props.metadata?"block":"none"}}>
+        bottom: "0px",padding:"12px"
+        // ,display:props.metadata?"block":"none"
+        }}>
           <Row type="flex">
           <Col xs={12} sm={8}>
             <Row>
               <Col span={6}>
           <Card
     hoverable
-    style={{ width: "40px" ,height:"40px"}}
+    style={{ width: "40px" ,height:"40px",display:props.metadata?"block":"none"}}
     cover={<img alt="song" src={props.metadata && props.metadata.common?'data:image/jpeg;base64,' +props.metadata.common.picture[0].data:require('../images/song_logo.png')} />}
   >
   </Card>
@@ -46,7 +48,7 @@ const FooterComp=(props)=>{
   </div>
   <div>
   <span style={{display:'flex'}}>
-   <h6>{props.metadata && props.metadata.common && props.metadata.common.composer ?props.metadata.common.composer.toString():null}</h6>
+   <h6>{props.metadata && props.metadata.common && props.metadata.common.artist ?props.metadata.common.artist:null}</h6>
   </span>
   </div>
   </Col>

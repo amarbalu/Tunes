@@ -38,7 +38,7 @@ const { Meta } = Card;
         overflow: "hidden",
         textOverflow: "ellipsis"}}
       title={value.metadata.common ?  value.metadata.common.title.indexOf('::')>=0?value.metadata.common.title.split("::")[0]:value.metadata.common.title.split("-")[0]:atob(value.filename)}
-      description={value.metadata.common && value.metadata.common.composer?value.metadata.common.composer.toString():<div style={{visibility:'hidden'}}>{atob(value.filename)}</div>}
+      description={value.metadata.common && value.metadata.common.artist?value.metadata.common.artist.toString():<div style={{visibility:'hidden'}}>{atob(value.filename)}</div>}
     />
   </Card>
   </Col> 
