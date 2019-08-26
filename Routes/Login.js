@@ -16,7 +16,8 @@ require('../config/passport')(passport);
 app.use(session({
     secret: "tHiSiSasEcRetStr",
     resave: true,
-    saveUninitialized: true }));
+    saveUninitialized: true ,
+  expires:10000}));
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -29,16 +30,18 @@ app.get('/error',(req,res)=>{
   res.send({"success":false,message:"Invalid Crendentials"})
 })
 app.get("/auth/facebook/callback",passport.authenticate('facebook'
-// , { scope : ['email'] }
-, {failureRedirect: '/error' }),function(req, res) {
+, {successRedirect : 'login/profile',
+  failureRedirect: '/login/error' }),function(req, res) {
     
   res.send(req.user)
 });
-const myLogger = function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://tunesmusic.herokuapp.com");
-  next()
+
+app.get('/profile',(req,res)=>{
+  res.send(req.user)
+})
+app.get('/auth/facebook',passport.authenticate('facebook' ,{ 
+  scope : ['public_profile', 'email']
 }
-app.get('/auth/facebook',myLogger,passport.authenticate('facebook'
 
 ));
 

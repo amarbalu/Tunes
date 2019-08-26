@@ -91,7 +91,15 @@ min-width: 300px;
       
     }
   }
-    
+  @media (max-width: 575px){
+  .registerForm .ant-form-item-label {
+    width: 40% !important;
+  }
+  .registerForm .ant-form-item-control-wrapper{
+    width: 60% !important;
+  }
+}
+  
 @media only screen and (max-width:568px){
   .card-width{
     margin-right: 30px

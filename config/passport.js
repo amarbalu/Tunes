@@ -52,21 +52,32 @@ module.exports=function(passport){
         callbackURL: config.callback_url
       },
       function(accessToken, refreshToken, profile, done) {
-          console.log(profile);
-        return(done,profile)
-        //   try{
-        //   User.findOne({email:profile.id}).then(
-        //     user=>{
+       
+          try{
+          User.findOne({email:profile.id}).then(
+            user=>{
                 
-        //         if(!user){
-        //             return done(null,false,{message:"Email is not registered"});
-        //         }else{
-        //             return(done,profile)
-        //         }
-        // });
-        //   }catch(ex){
-        //     console.log(ex)
-        //   }
+                if(!user){
+                    return done(null,false,{message:"Email is not registered"});
+                }else{
+                   const register =new User({
+                        username:profile.name.givenName,
+                       
+                        email:profile.emails[0].value
+                        
+                    })
+                  
+                
+                     register.save((err)=>{
+                         if(err)
+                         throw err
+                         return(null,register)
+                     });
+                }
+        });
+          }catch(ex){
+            console.log(ex)
+          }
     }));
        
 } 

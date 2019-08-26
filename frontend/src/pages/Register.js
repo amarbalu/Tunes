@@ -5,7 +5,7 @@ import '../css/App.css';
 import {
   Form,
   Input,
-  Checkbox,
+  Row,
   Button,
   Card
 } from 'antd'
@@ -80,10 +80,11 @@ setPhoneNumber("");
   ).catch(err=>console.log("err"+err));
     }
   return (
-    <div className="row" id="register">
-      <div className="col-1 col-xl-6"></div>
-      <div className=" col-11 col-xl-6" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
-      <Card  title="Register">
+    <div id="register">
+      {/* <div className="col-1 col-xl-6"></div> */}
+      {/* <div className=" col-11 col-xl-6" style={{display:"flex",alignItems:"center",justifyContent:"center"}}> */}
+      <Row type="flex" justify="center" align="middle" style={{height:"100%"}}>
+      <Card title="Signup"  >
       <Form className="registerForm" >
       <Form.Item
           label="Username" 
@@ -105,8 +106,9 @@ setPhoneNumber("");
         <Form.Item label="Phone Number"  colon={false} {...formItemLayout} >
           <Input  style={{ width: '100%' }} placeholder="phone number" id="phoneNumber" value={phoneNumber} onChange={(e)=>saveValues(e)} />
         </Form.Item>
-       
-        
+        <Form.Item>
+        <div style={{display:"flex",justifyContent:"center"}}><a href="/Login" >Already Registered? Try Login</a></div>
+        </Form.Item>
         {/* <Form.Item  {...tailFormItemLayout} colon={false} {...formItemLayout} >
           
             <Checkbox>
@@ -116,11 +118,12 @@ setPhoneNumber("");
         </Form.Item> */}
         <Form.Item {...tailFormItemLayout} colon={false}>
           <Button type="primary" onClick={()=>Register()}>
-            Register
+           Signup
           </Button>
         </Form.Item>
       </Form>
       </Card>
+      </Row>
       {/* <div className="card bg-light text-dark card-background card-width">
       <div className="card-header">Register Here</div>
     <div className="card-body">
@@ -140,7 +143,7 @@ setPhoneNumber("");
       <button id="Register" className="btn btn-primary" onClick={()=>Register()}>Register</button></div>
       </div>
     </div> */}
-      </div>
+      {/* </div> */}
       
     </div>
   );
