@@ -29,7 +29,7 @@ const Dashboard=(props)=>{
             return res.json()
         }).then(res => {
           if(res.success){
-            props.history.push("/Login")
+            props.history.push("/Homepage")
           }
         }).catch(err=>console.log(err));
     }
