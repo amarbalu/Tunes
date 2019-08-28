@@ -30,10 +30,12 @@ const FooterComp=(props)=>{
   //   audio.addEventListener("play", ()=>setPlay(),false);
     
   // }
-  const handleClick=()=> {
+  const handleClick=(props)=> {
     if (playing) {
-        audio.pause();
+      audio.pause();
+      document.title="Tunes"
     } else {
+      document.title=props.metadata.common.title;
        audio.play();
     }
     setPlaying(!playing)
@@ -73,8 +75,8 @@ const FooterComp=(props)=>{
           <Col xs={12} sm={{span:16}}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
-          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>handleClick()} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>handleClick()}/>}
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>handleClick(props)} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>handleClick(props)}/>}
    <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>
 </div>
           </Col>
