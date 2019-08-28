@@ -13,9 +13,11 @@ const FooterComp=(props)=>{
       const audio = document.getElementById("audio");
       audio.addEventListener("pause",()=> {
         audio.pause()
+setPlaying(false)
       },false)
       audio.addEventListener("play",()=> {
         audio.play()
+setPlaying(true)
       },false)
     },[])
  
