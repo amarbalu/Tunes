@@ -8,20 +8,36 @@ const FooterComp=(props)=>{
   const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
-   
     const audio = document.getElementById("audio");
+    useEffect(() =>{
+      const audio = document.getElementById("audio");
+      audio.addEventListener("pause",()=> {
+        audio.pause()
+      },false)
+      audio.addEventListener("play",()=> {
+        audio.play()
+      },false)
+    },[])
  
-  const setPlay=()=>{
-    setPlaying(true);
-    //audio.removeEventListener("play",setPlay,false);
-     audio.addEventListener("pause",()=> setPause(),false)
-  }
-  const setPause=()=>{
-    setPlaying(false)
-    //audio.removeEventListener("pause",setPause,false);
-    audio.addEventListener("play", ()=>setPlay(),false);
+  // const setPlay=()=>{
+  //   setPlaying(true);
+  //   //audio.removeEventListener("play",setPlay,false);
+  //    audio.addEventListener("pause",()=> setPause(),false)
+  // }
+  // const setPause=()=>{
+  //   setPlaying(false)
+  //   //audio.removeEventListener("pause",setPause,false);
+  //   audio.addEventListener("play", ()=>setPlay(),false);
     
-  }
+  // }
+  const handleClick=()=> {
+    if (playing) {
+        audio.pause();
+    } else {
+       audio.play();
+    }
+    setPlaying(!playing)
+ };
     return(
         <Footer style={{ textAlign: 'center',position: "fixed",
         width: "100%",
@@ -57,8 +73,8 @@ const FooterComp=(props)=>{
           <Col xs={12} sm={{span:16}}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
           <div style={{display:"flex"}}> 
-          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>setPlay()} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>setPause()}/>}
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>handleClick()} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>handleClick()}/>}
    <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>
 </div>
           </Col>

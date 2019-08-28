@@ -26,7 +26,7 @@ const { Meta } = Card;
             <Row gutter={32}>
                 
         {songs.map((value,index)=>
-            <Col key={index} lg={6} xs={12} xl={4} style={{paddingTop:'16px',paddingBottom:'16px'}}> 
+            <Col key={index} lg={6} xs={11} xl={4} style={{paddingTop:'16px',paddingBottom:'16px'}}> 
         <Card  
         hoverable
         
