@@ -43,44 +43,45 @@ setPlaying(true)
     setPlaying(!playing)
  };
     return(
-        <Footer style={{ textAlign: 'center',position: "fixed",
-        width: "100%",
-        bottom: "0px",padding:"12px"
-        // ,display:props.metadata?"block":"none"
+        <Footer style={{ textAlign: 'center',position: "fixed",width: "100%",bottom: "0px",padding:"12px",height:"75px"// ,display:props.metadata?"block":"none"
         }}>
           <Row type="flex">
-          <Col xs={12} sm={8}>
+          <Col xs={24} sm={10}>
             <Row>
-              <Col span={6}>
-          <Card
-    hoverable
-    style={{ width: "40px" ,height:"40px",display:props.metadata?"block":"none"}}
-    cover={<img alt="song" src={props.metadata && props.metadata.common?'data:image/jpeg;base64,' +props.metadata.common.picture[0].data:require('../images/song_logo.png')} />}
-  >
-  </Card>
-  </Col>
+              <Col span={3}>
+          <Card hoverable style={{ width: "40px" ,height:"40px",display:props.metadata?"block":"none"}} cover={<img alt="song" src={props.metadata && props.metadata.common?'data:image/jpeg;base64,' +props.metadata.common.picture[0].data:require('../images/song_logo.png')} />}>
+          </Card>
+          </Col>
 
-  <Col span={18}>
-    <div>
-  <span style={{display:'flex',fontWeight:'bold'}}>
-  <h6>{props.metadata&& props.metadata.common?props.metadata.common.title.split("::")[0]:props.metadata && props.metadata.filename?atob(props.metadata.filename):null}</h6>
-  </span>
+            <Col span={18}>
+             
+              <div>
+              <span style={{display:'flex',fontWeight:'bold'}}>
+              <h6>{props.metadata&& props.metadata.common?props.metadata.common.title.split("::")[0]:props.metadata && props.metadata.filename?atob(props.metadata.filename):null}</h6>
+              </span>
+            </div>
+              <div style={{ display:"flex",   width: "100%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"}}>
+ 
+   {props.metadata && props.metadata.common && props.metadata.common.artist ?props.metadata.common.artist:null}
+
   </div>
-  <div>
-  <span style={{display:'flex'}}>
-   <h6>{props.metadata && props.metadata.common && props.metadata.common.artist ?props.metadata.common.artist:null}</h6>
-  </span>
+  </Col>
+  <Col xs={{span:3}}>
+  <div style={{display:"flex",justifyContent:"flex-end"}}> 
+          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large"}} onClick={()=>handleClick(props)} />:
+          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large"}}   onClick={()=>handleClick(props)}/>}
+  
+
   </div>
   </Col>
   </Row>
           </Col>
-          <Col xs={12} sm={{span:16}}>
+          <Col xs={{span:0}} sm={14}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
-          <div style={{display:"flex"}}> 
-          {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large",margin:'10px'}} onClick={()=>handleClick(props)} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large",margin:'10px'}}   onClick={()=>handleClick(props)}/>}
-   <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>
-</div>
+   <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>        
           </Col>
           
         </Row>

@@ -19,7 +19,7 @@ const Dashboard=(props)=>{
 
     const songSelected=(id,filename,metadata)=>{
       props.loading_music(metadata);
-    setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${filename}`)
+    setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${id}`)
     }
 
     const onLogout=()=>{
