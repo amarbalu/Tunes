@@ -18,30 +18,34 @@ const loginApiCall=()=>{
   formData.append("password",password);
   formData.append("email",email);
   Service.onLogin(formData).then(response =>{ if(response.success){
-    
   props.history.push("/dashboard")
   }else{
     message.error(response.message);
   }
   props.loading_action(false);
 }).catch(err=>console.log("err"+err));
+}else{ if(!email && !helpEmail){
+  setValidateStatusEmail("error")
+setHelpEmail("Email is required")
+}
+if(!password && !helpPassword){
+  setValidateStatusPassword("error")
+setHelpPassword("Password is required")
 }
 }
-const loginFacebook=()=>{
-  Service.onFacebookLogin().then(response => console.log(response)).catch(err=>console.log("err"+err));
 }
+
 const changeValues=(e)=>{
   switch(e.target.id){
           case "email":
             
 
               setEmail(e.target.value);
-            
+              setValidateStatusEmail("success");
+              setHelpEmail("")
               break;
               case "password":
-                console.log(e.target.value.length)
                 if(e.target.value.length <=16  ){
-               
                   setPassword(e.target.value);
                   setValidateStatusPassword("success");
                   setHelpPassword("")
@@ -65,7 +69,7 @@ const changeValues=(e)=>{
                     setHelpEmail("")
                   }else{
                     setValidateStatusEmail("error")
-                    setHelpEmail("Enter valid Email")
+                    setHelpEmail("Enter a valid Email")
                   }
                     break;
                     case "password":
@@ -122,9 +126,6 @@ const changeValues=(e)=>{
          <div style={{display:"flex",justifyContent:"center"}}><span 
         >or</span></div>
          <div style={{display:"flex",justifyContent:"center"}}>
-           {/* <Button style={{backgroundColor:"#3b5998",borderColor:"#3b5998",color:"white"}}id="Login" onClick={()=>loginFacebook()} className="btn btn-primary" >
-       Login with Facebook 
-      </Button> */}
       <a href={`${process.env.REACT_APP_API_URL}/login/auth/facebook`}>Login with Facebook</a>
       </div> 
       </div> 

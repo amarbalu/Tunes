@@ -14,12 +14,14 @@ const UploadLibrary=(props)=>{
           const { status } = info.file;
           if (status === 'done') {
             message.success(`${info.file.name} file uploaded successfully.`);
+            setFileList(fileList.filter(check=>check.name !== info.file.name))
           } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-          }
+            message.error(`${info.file.name} ${info.file.response.message} `);
+            setFileList(fileList.filter(check=>check.type.indexOf("audio")>=0 ||check.type==="application/octet-stream"))
+          }else{
         
           setFileList(fileList.filter(check=>check.type.indexOf("audio")>=0 ||check.type==="application/octet-stream"))
-         
+          }
         },
         beforeUpload(file,fileList) {
           

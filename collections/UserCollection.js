@@ -27,10 +27,8 @@ const validateUser=async(user)=>{
 
 const validateLogin=async(user)=>{
     const schemaLogin=Joi.object().keys({
-        
         email:Joi.string().min(4).max(255).required(),
         password:Joi.string().min(8).max(16).required()
-
     })
       
         return await Joi.validate(user,schemaLogin);

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 function useAudioPlayer() {
-  const [duration, setDuration] = useState();
-  const [curTime, setCurTime] = useState();
+  const [duration, setDuration] = useState(0.0100);
+  const [curTime, setCurTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [clickedTime, setClickedTime] = useState();
 
@@ -31,6 +31,7 @@ function useAudioPlayer() {
 
     if (clickedTime && clickedTime !== curTime) {
       audio.currentTime = clickedTime;
+      setCurTime(clickedTime)
       setClickedTime(null);
     } 
 
@@ -53,7 +54,8 @@ function useAudioPlayer() {
     duration,
     playing,
     setPlaying,
-    setClickedTime
+    setClickedTime,
+    setCurTime
   }
 }
 

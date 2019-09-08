@@ -44,7 +44,7 @@ return(
     }} >STAY TUNED...</h1>
     <Button  style={{width: "270px",fontWeight:"bold",
     height: "60px",fontSize:"larger",borderRadius:"20px"}}
-    onClick={()=>{props.history.push("/Register")}}>Try it for free</Button>
+    onClick={()=>{props.history.push("/Login")}}>Try it for free</Button>
   </Col>
   </Row>
     </Content>

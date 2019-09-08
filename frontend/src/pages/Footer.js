@@ -5,7 +5,7 @@ import Bar from './AudioBar.js';
 import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
-  const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
+  const { playing, setPlaying , curTime, duration, setClickedTime,setCurTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
     const audio = document.getElementById("audio");
@@ -20,18 +20,10 @@ setPlaying(false)
 setPlaying(true)
       },false)
     },[])
- 
-  // const setPlay=()=>{
-  //   setPlaying(true);
-  //   //audio.removeEventListener("play",setPlay,false);
-  //    audio.addEventListener("pause",()=> setPause(),false)
-  // }
-  // const setPause=()=>{
-  //   setPlaying(false)
-  //   //audio.removeEventListener("pause",setPause,false);
-  //   audio.addEventListener("play", ()=>setPlay(),false);
-    
-  // }
+
+  const timeUpdate=(time)=>{
+    setClickedTime(time)
+  }
   const handleClick=(props)=> {
     if (playing) {
       audio.pause();
@@ -81,7 +73,7 @@ setPlaying(true)
           </Col>
           <Col xs={{span:0}} sm={14}>
           <audio id="audio" ref={player} src={props.audioSrc}   />
-   <Bar curTime={curTime} duration={duration} setClickedTime={(time)=>setClickedTime(time)}/>        
+   <Bar curTime={curTime} duration={duration} setClickedTime={timeUpdate}/>        
           </Col>
           
         </Row>

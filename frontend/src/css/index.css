@@ -16,7 +16,7 @@ code {
 }
 #register{
   height:100%;
-  background-image: url(../images/casette.jpg);
+  background-image: url(../images/login.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -28,7 +28,7 @@ code {
 }
 #login{
   height:100%;
-  background-image: url(../images/login.jpg);
+  background-image: url(../images/casette.jpg);
  /* background-color:#e6e6e6; */
  background-repeat: no-repeat;
   background-size: cover;

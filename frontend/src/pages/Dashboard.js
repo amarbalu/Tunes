@@ -18,8 +18,8 @@ const Dashboard=(props)=>{
     }
 
     const songSelected=(id,filename,metadata)=>{
+      setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${id}`)
       props.loading_music(metadata);
-    setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${id}`)
     }
 
     const onLogout=()=>{
@@ -55,21 +55,14 @@ return (
       
         style={{ lineHeight: '64px' }}
       >
-         <Menu.Item key="profile">Profile</Menu.Item>
-        <Menu.SubMenu
-          title={
-            <span className="submenu-title-wrapper">
-              <Icon type="setting" />
-              Settings
-            </span>
-          }
-        >
-         
-           
-            <Menu.Item key="logout" onClick={()=>onLogout()} >Logout</Menu.Item>
-          
-        </Menu.SubMenu>
-       
+         <Menu.Item key="profile">
+         <Icon type="user" />
+          <span className="nav-text">Profile</span>
+         </Menu.Item>
+            <Menu.Item key="logout" onClick={()=>onLogout()} >
+            <Icon type="logout" />
+          <span className="nav-text">Logout</span>
+            </Menu.Item>
       </Menu>
       </Col>
     </Row>

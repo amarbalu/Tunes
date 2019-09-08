@@ -44,8 +44,8 @@ export default function Bar(props) {
     <div className="bar">
       <span className="bar__time" style={{marginLeft:'10px',fontSize:'small'}}>{formatDuration(curTime)}</span>
       
-        <Progress percent={curPercentage}  showInfo={false}  onMouseDown={e => handleTimeDrag(e)}/>
-       
+        {/* <Progress percent={curPercentage}  showInfo={false}  onMouseDown={e => handleTimeDrag(e)}/> */}
+        <input type="range" className="bar__progress" value={curPercentage}  onMouseDown={e => handleTimeDrag(e)}/>
       <span className="bar__time" tyle={{marginLeft:'10px',fontSize:'small'}}>{formatDuration(duration)}</span>
     </div>
   );
