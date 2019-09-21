@@ -12,13 +12,13 @@ module.exports=function(passport){
     done(null, user.id);
     });
     
-    passport.deserializeUser(function(id, done) {
-      done(null, id);
+    passport.deserializeUser(function(user, done) {
+      done(null, user);
     });
     
 
     
-    passport.use(
+    passport.use('local',
         new localStrategy({usernameField:"email"},(email,password,done)=>{
            //Match User
            
@@ -46,7 +46,7 @@ module.exports=function(passport){
             ).catch(err=>console.log(err));  
         })
     ) 
-    passport.use(new FacebookStrategy({
+    passport.use('facebook',new FacebookStrategy({
         clientID: config.facebook_api_key,
         clientSecret:config.facebook_api_secret ,
         callbackURL: config.callback_url
