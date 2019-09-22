@@ -15,10 +15,10 @@
 <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : `${process.env.REACT_APP_FB_APP_ID}`,
+        appId      : "%REACT_APP_FB_APP_ID%",
         cookie     : true,
         xfbml      : true,
-        version    :`${process.env.REACT_APP_FB_APP_VERSION}`
+        version    :"%REACT_APP_FB_APP_ID%"
       });
         
       FB.AppEvents.logPageView();   
