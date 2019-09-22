@@ -50,9 +50,8 @@ app.get('/profile',(req,res)=>{
   res.send(req.user)
 })
 app.get('/auth/facebook',passport.authenticate('facebook'));
-app.get("/auth/facebook/callback",passport.authenticate('facebook'
-, {successRedirect : '/profile',
-  failureRedirect: '/error' }),function(req, res) {
+app.get("/auth/facebook/callback",passport.authenticate('facebook')
+,function(req, res) {
     
   res.send(req.user)
 });

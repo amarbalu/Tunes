@@ -54,27 +54,28 @@ module.exports=function(passport){
       function(accessToken, refreshToken, profile, done) {
        
           try{
-          User.findOne({email:profile.id}).then(
-            user=>{
+              return done(null,profile)
+        //   User.findOne({email:profile.id}).then(
+        //     user=>{
                 
-                if(!user){
-                    const register =new User({
-                         username:profile.name.givenName,
+        //         if(!user){
+        //             const register =new User({
+        //                  username:profile.name.givenName,
                         
-                         email:profile.emails[0].value
+        //                  email:profile.emails[0].value
                          
-                     })
+        //              })
                    
                  
-                      register.save((err)=>{
-                          if(err)
-                          throw err
-                          return done(null,profile)
-                        });
-                        }else{
-                            return done(null,profile)
-                }
-        });
+        //               register.save((err)=>{
+        //                   if(err)
+        //                   throw err
+        //                   return done(null,profile)
+        //                 });
+        //                 }else{
+        //                     return done(null,profile)
+        //         }
+        // });
           }catch(ex){
             console.log(ex)
           }
