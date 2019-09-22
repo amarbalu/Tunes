@@ -18,9 +18,9 @@ function loginAuthentication(){
 }
 
 function fetchSecretSauce(){
-    return fetch(`${process.env.REACT_APP_API_URL}/login/login_auth`,{
+    return fetch(`${process.env.REACT_APP_API_URL}/login_auth`,{
         method:"GET",
-        credentials: 'include'
+        credentials:'include'
     })
 }
 export default loginAuthentication;

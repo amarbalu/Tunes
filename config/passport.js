@@ -12,8 +12,8 @@ module.exports=function(passport){
     done(null, user.id);
     });
     
-    passport.deserializeUser(function(user, done) {
-      done(null, user);
+    passport.deserializeUser(function(id, done) {
+      done(null, id);
     });
     
 
@@ -58,21 +58,21 @@ module.exports=function(passport){
             user=>{
                 
                 if(!user){
-                    return done(null,false,{message:"Email is not registered"});
-                }else{
-                   const register =new User({
-                        username:profile.name.givenName,
-                       
-                        email:profile.emails[0].value
+                    const register =new User({
+                         username:profile.name.givenName,
                         
-                    })
-                  
-                
-                     register.save((err)=>{
-                         if(err)
-                         throw err
-                         return(null,register)
-                     });
+                         email:profile.emails[0].value
+                         
+                     })
+                   
+                 
+                      register.save((err)=>{
+                          if(err)
+                          throw err
+                          return done(null,profile)
+                        });
+                        }else{
+                            return done(null,profile)
                 }
         });
           }catch(ex){

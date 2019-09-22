@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
   secret: "tHiSiSasEcRetStr",
   resave: true,
-  store:new session.MemoryStore({ reapInterval: 60000 * 10 }),
   saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
