@@ -59,7 +59,7 @@ const Register=()=> {
                     setEmail(e.target.value);
                     break;
                     case "password":
-                      if(e.target.value && e.target.value.length<=16){
+                      if( e.target.value.length<=16){
                         setHelpPassword("")
                         setPassword(e.target.value);
                       }else{
@@ -67,7 +67,7 @@ const Register=()=> {
                       }
                         break;
                         case "confirmPassword":
-                            if(e.target.value && e.target.value.length<=16){
+                            if(e.target.value.length<=16){
                           setConfirmPassword(e.target.value);
                           setHelpConfirmPassword("");
                         }else{
@@ -128,9 +128,9 @@ const onBlurValues=(e)=>{
                 break;
 }
 }
-    const Register=()=>{
+    const registerClick=()=>{
       if(username && email && password && confirmPassword && phoneNumber
-        && helpUsername && helpEmail && helpPassword && helpConfirmPassword && helpPhoneNumber){
+        && !helpUsername && !helpEmail && !helpPassword && !helpConfirmPassword && !helpPhoneNumber){
         const formData=new FormData();
         formData.append("username",username);
         formData.append("password",password);
@@ -194,7 +194,7 @@ const onBlurValues=(e)=>{
         <div style={{display:"flex",justifyContent:"center"}}><a href="/Login" >Already Registered? Try Login</a></div>
         </Form.Item>
         <Form.Item {...tailFormItemLayout} colon={false}>
-          <Button type="primary" onClick={()=>Register()}>
+          <Button type="primary" onClick={()=>registerClick()}>
            Signup
           </Button>
         </Form.Item>

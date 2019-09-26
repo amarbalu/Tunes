@@ -12,8 +12,8 @@ module.exports=function(passport){
     done(null, user.id);
     });
     
-    passport.deserializeUser(function(id, done) {
-      done(null, id);
+    passport.deserializeUser(function(user, done) {
+      done(null, user);
     });
     
 
@@ -53,28 +53,40 @@ module.exports=function(passport){
       function(accessToken, refreshToken, profile, done) {
        
           try{
-              return done(null,profile)
-        //   User.findOne({email:profile.id}).then(
-        //     user=>{
-                
-        //         if(!user){
-        //             const register =new User({
-        //                  username:profile.name.givenName,
-                        
-        //                  email:profile.emails[0].value
+          User.findOne({email:profile.id}).then(
+            user=>{
+                try{
+            
+                if(!user){
+                    const register =new User({
+                         username:profile.displayName,
+                         email:profile.id,
+                         password:'12345678',
+                         confirmPassword:'12345678',
+                         phoneNumber:'12345'
                          
-        //              })
+                     })
                    
                  
-        //               register.save((err)=>{
-        //                   if(err)
-        //                   throw err
-        //                   return done(null,profile)
-        //                 });
-        //                 }else{
-        //                     return done(null,profile)
-        //         }
-        // });
+                      register.save((err)=>{
+                          try{
+                          if(err)
+                          throw err
+                          return done(null,profile)
+                          }catch(ex){
+                              return done(null,false,{message:"error in saving"})
+                          }
+                        });
+                        }else{
+                            return done(null,profile)
+                        
+                }
+            }catch(ex){
+                console.log(ex)
+            }
+        }).catch(ex=>{
+            re
+        })
           }catch(ex){
             console.log(ex)
           }

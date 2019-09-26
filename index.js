@@ -15,6 +15,7 @@ const app = express();
 const port=process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
 app.use(cors());
+app.use(cookieParser());
 app.use(session({
   secret: "tHiSiSasEcRetStr",
   resave: false,
@@ -25,7 +26,7 @@ app.use(session({
 } }));
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(cookieParser("tHiSiSasEcRetStr"));
+ 
   require('./config/passport')(passport);
 
   app.post("/onLogin",upload.none(),
@@ -38,8 +39,9 @@ app.get('/error',(req,res)=>{
 })
 
 app.get("/login_auth",(req,res)=>{
-  console.log(req.isAuthenticated())
-  console.log(req.id)
+
+  console.log(req.user)
+  console.log(req.cookies)
   if(req.isAuthenticated()){
     res.send("Hi");
   }else{
@@ -52,8 +54,7 @@ app.get('/profile',(req,res)=>{
 app.get('/auth/facebook',passport.authenticate('facebook'));
 app.get("/auth/facebook/callback",passport.authenticate('facebook')
 ,function(req, res) {
-    
-  res.send(req.user)
+      res.redirect("/Dashboard")
 });
 app.use("/register",register);
 app.use("/login",login);
