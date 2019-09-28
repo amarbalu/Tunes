@@ -14,11 +14,13 @@ require('./mongodb');
 const app = express();
 const port=process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
+app.use(cors(
+//   {
+//   origin: 'http://localhost:3000',
+//   credentials: true,
 
-}));
+// }
+));
 app.use(cookieParser());
 app.use(session({
   secret: "tHiSiSasEcRetStr",
