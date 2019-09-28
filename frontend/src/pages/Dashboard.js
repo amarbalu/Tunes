@@ -1,11 +1,17 @@
 import React,{useState} from 'react';
-import { Layout, Menu, Icon,Row, Col  } from 'antd';
+import { Layout, Menu, Icon,Row, Col,Spin  } from 'antd';
 import SongsList from './SongsList.js';
 import Upload from './Upload.js';
 import FooterComp from './Footer.js';
 import {connect} from'react-redux'
 
+const antIcon = <img src={require("../images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
+const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
+  
+  <Spin size="large" className={"spinner " + (props.isshow ? "show" : "hide")} 
+  indicator={antIcon}  />
 
+</div>
 const Dashboard=(props)=>{
     const { Header, Content, Sider } = Layout;
     const [menuKeys,setMenuKeys]=useState("songs");
@@ -118,6 +124,7 @@ return (
     <div className="sidebar">
       <Content style={{margin:"15px",marginBottom:'52px'}} >
         <div style={{ background: '#fff', minHeight: 360 }}>
+        <Loader isshow={props.loader}/>
         {menuKeys==="add"?<Upload/>:null}
             {menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
         </div>
@@ -136,7 +143,17 @@ const mapDispatchToProps=dispatch=>{
         type:"LOAD_MUSIC",
         metadata:value
       })
+    },loader_songs:(value)=>{
+      dispatch({
+        type:"LOADER_CARD",
+        loader:value
+      })
     }
   }
 }
-export default connect(null,mapDispatchToProps)(Dashboard);
+const mapStateToProps=state=>{
+  return{
+    loader:state.loginReducer.loader
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 const initialState={
-    loading:false,can_proceed:false
+    loading:false,can_proceed:false,loader:false
 }
 const musicInitialState={
     metadata:null
@@ -19,6 +19,11 @@ const loginReducer = (state = initialState, action) => {
                ...state,
             can_proceed:action.can_proceed
            }
+           case 'LOADER_CARD':
+                return{
+                    ...state,
+                 loader:action.loader
+                }
        default: return state
     }
  }

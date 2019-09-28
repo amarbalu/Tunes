@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { Card,Col,Row,Icon } from 'antd';
 import atob from 'atob';
-
+import {connect} from 'react-redux';
 
 
 const SongsList=(props)=>{
@@ -9,7 +9,7 @@ const SongsList=(props)=>{
     
 const { Meta } = Card;
     useEffect(()=>{
-        
+        props.loader_songs(true);
         fetch(`${process.env.REACT_APP_API_URL}/music/files`,{
             method:"GET",
         }).then(function(res){ 
@@ -18,6 +18,7 @@ const { Meta } = Card;
                 if(!res.err){
 
                     setSongs(res);
+                    props.loader_songs(false);
                 }
             }).catch(err=>console.log(err));
     },[])
@@ -62,5 +63,14 @@ const { Meta } = Card;
         </React.Fragment>
     )
 }
-
-export default SongsList;
+const mapDispatchToProps=dispatch=>{
+    return{
+      loader_songs:(value)=>{
+        dispatch({
+          type:"LOADER_CARD",
+          loader:value
+        })
+      }
+    }
+  }
+export default connect(null,mapDispatchToProps)(SongsList);
