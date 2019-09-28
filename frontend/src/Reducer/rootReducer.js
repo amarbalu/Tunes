@@ -10,11 +10,13 @@ const loginReducer = (state = initialState, action) => {
     switch (action.type) {
        case 'LOADING_ACTION': 
        return {
+           ...state,
            loading:action.loading 
        }
        
        case 'LOGIN_AUTH':
            return{
+               ...state,
             can_proceed:action.can_proceed
            }
        default: return state

@@ -4,7 +4,7 @@ function loginAuthentication(){
           response => dispatch(
               {
                 type:'LOGIN_AUTH',
-                can_proceed:true
+                can_proceed:response.status
               }
           )
         ).catch(

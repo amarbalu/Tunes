@@ -14,7 +14,11 @@ require('./mongodb');
 const app = express();
 const port=process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+
+}));
 app.use(cookieParser());
 app.use(session({
   secret: "tHiSiSasEcRetStr",
@@ -39,13 +43,10 @@ app.get('/error',(req,res)=>{
 })
 
 app.get("/login_auth",(req,res)=>{
-
-  console.log(req.user)
-  console.log(req.cookies)
   if(req.isAuthenticated()){
-    res.send("Hi");
+    res.send({"status":true,message:"user autheticated"});
   }else{
-    res.status(500).send("Error cannot proceed")
+    res.status(401).send({"status":false,message:"unAuthorised"})
   }
 })
 app.get('/profile',(req,res)=>{
@@ -57,7 +58,6 @@ app.get("/auth/facebook/callback",passport.authenticate('facebook')
       res.redirect("/Dashboard")
 });
 app.use("/register",register);
-app.use("/login",login);
 app.use("/music",music);
 app.get("/logout",(req,res)=>{
   req.logOut();

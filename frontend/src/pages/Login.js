@@ -17,7 +17,8 @@ const loginApiCall=()=>{
   const formData=new FormData();
   formData.append("password",password);
   formData.append("email",email);
-  Service.onLogin(formData).then(response =>{ if(response.success){
+  Service.onLogin(formData).then(async response =>{ if(response.success){
+  await props.login_auth()
   props.history.push("/dashboard")
   }else{
     message.error(response.message);
@@ -146,6 +147,12 @@ const mapDispatchToProps=dispatch=>{
         type:"LOADING_ACTION",
         loading:value
       })
+    },
+      login_auth:()=>{
+        dispatch({
+          type:"LOGIN_AUTH",
+          can_proceed:true
+        })
     }
   }
 }

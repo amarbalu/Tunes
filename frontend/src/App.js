@@ -6,7 +6,7 @@ import Homepage from './pages/Homepage';
 import {BrowserRouter,Route,Redirect,Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {connect} from 'react-redux'
-
+import PrivateRoute from './components/privateRoutes';
 
 import './css/App.css';
 import {Spin,Icon} from 'antd';
@@ -23,6 +23,7 @@ const routes=[
 {path:"/Dashboard",component:Dashboard},
 {path:"/Homepage",component:Homepage}
 ]
+
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
   
@@ -30,8 +31,8 @@ const Loader = props => <div className={props.isshow ? "spinner-back  show spinn
   indicator={antIcon}  />
 
 </div>
-const App=(props)=> {
-
+const App=(propsValue)=> {
+ 
   return (
     <React.Fragment>
   
@@ -39,21 +40,26 @@ const App=(props)=> {
    
 <Switch>
  {routes.map((props, index) =>
- <Route exact key={props.path} path={props.path} component={props.component}/>)}
- 
+ props.path === "/Dashboard"?
+ <PrivateRoute  exact key={props.path} path={props.path} component={props.component}/>
+ : <Route exact key={props.path} path={props.path} component={props.component}/>
+
+ )}
     
 
-    <Redirect to="/Homepage"></Redirect> 
+    <Redirect to="/HomePage"></Redirect> 
 </Switch>  
   </BrowserRouter>
  
- <Loader isshow={props.loading}/>
+ <Loader isshow={propsValue.loading}/>
  </React.Fragment>
  );
 }
 const mapStateToProps=state=>{
   return{
-    loading:state.loginReducer.loading
+    loading:state.loginReducer.loading,
+    can_proceed:state.loginReducer.can_proceed
+
   }
 }
 export default connect(mapStateToProps, null)(App);
