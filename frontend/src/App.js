@@ -24,10 +24,10 @@ const routes=[
 {path:"/Homepage",component:Homepage}
 ]
 
-const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+const antIcon = <img src={require("./images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
   
-  <Spin  tip="Loading..." size="large" className={"spinner " + (props.isshow ? "show" : "hide")} 
+  <Spin size="large" className={"spinner " + (props.isshow ? "show" : "hide")} 
   indicator={antIcon}  />
 
 </div>

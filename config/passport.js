@@ -10,11 +10,10 @@ module.exports=function(passport){
     
     passport.serializeUser(function(user, done) {
     done(null, user.email);
-    console.log("1"+user.email)
     });
     
     passport.deserializeUser(function(email, done) {
-        const user = User.findOne({email}).then(user=>{
+        const user = User.findOne({email:email}).then(user=>{
 if(!user){
     done(null,user)
 }
