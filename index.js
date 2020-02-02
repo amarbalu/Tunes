@@ -14,13 +14,7 @@ require('./mongodb');
 const app = express();
 const port=process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, 'frontend/build')))
-app.use(cors(
-//   {
-//   origin: 'http://localhost:3000',
-//   credentials: true,
-
-// }
-));
+app.use(cors());
 app.use(cookieParser());
 app.use(session({
   secret: "tHiSiSasEcRetStr",
@@ -54,19 +48,16 @@ app.get("/login_auth",(req,res)=>{
 app.get('/profile',(req,res)=>{
   res.send(req.user)
 })
-app.get('/auth/facebook',passport.authenticate('facebook'));
-app.get("/auth/facebook/callback",passport.authenticate('facebook')
-,function(req, res) {
-      res.redirect("/Dashboard")
-});
+
 app.use("/register",register);
 app.use("/music",music);
+app.use("/login",login);
 app.get("/logout",(req,res)=>{
   req.logOut();
   res.send({success:true,message:"logged out successfully"})
 })
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
-  });
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+//   });
 
 app.listen(port)

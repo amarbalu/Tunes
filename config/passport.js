@@ -13,13 +13,13 @@ module.exports=function(passport){
     });
     
     passport.deserializeUser(function(email, done) {
-//         const user = User.findOne({email:email}).then(user=>{
-// if(!user){
-//     done(null,user)
-// }
+        const user = User.findOne({email:email}).then(user=>{
+if(!user){
+    done(null,user)
+}
            
-//         })
-done(null,user)
+        })
+// done(null,user)
     });
     
 

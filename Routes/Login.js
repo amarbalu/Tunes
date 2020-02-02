@@ -45,11 +45,12 @@ app.get('/profile',(req,res)=>{
   // res.send(req.user)
   // res.redirect("/dashboard")
 })
-app.get('/auth/facebook',passport.authenticate('facebook' ,{ 
-  scope : ['public_profile', 'email']
-}
+// app.get('/auth/facebook',passport.authenticate('facebook' ,{ 
+//   scope : ['public_profile', 'email']
+// }
 
-));
+// ));
+app.get('/auth/facebook',passport.authenticate('facebook'));
 
 
 
