@@ -59,17 +59,19 @@ if(!user){
       function(accessToken, refreshToken, profile, done) {
        
           try{
-          User.findOne({email:profile.id}).then(
+          User.findOne({'facebook.id':profile.id}).then(
             user=>{
                 try{
-            
+                  
                 if(!user){
                     const register =new User({
                          username:profile.displayName,
-                         email:profile.id,
-                         password:'12345678',
-                         confirmPassword:'12345678',
-                         phoneNumber:'12345'
+                         email:profile.emails[0].value,
+                         facebook:{
+                             id:profile.id,
+                             token:accessToken
+                         }
+                        
                          
                      })
                    

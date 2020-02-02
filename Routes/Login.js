@@ -29,9 +29,10 @@ app.get('/error',(req,res)=>{
   res.send({"success":false,message:"Invalid Crendentials"})
 })
 app.get("/auth/facebook/callback",passport.authenticate('facebook'
-, {failureRedirect: '/login/error' }),function(req, res) {
+, {successRedirect : '/dashboard',
+  failureRedirect: '/login/error' }),function(req, res) {
     
-  res.send({"success":true,id:req.user,message:" FB Login success"})
+  res.send(req.user)
 });
 app.get("/login_auth",(req,res)=>{
   if(req.user){
