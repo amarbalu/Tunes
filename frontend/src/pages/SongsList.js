@@ -10,7 +10,8 @@ const SongsList = (props) => {
     useEffect(() => {   
         props.loader_songs(true);
         fetch(`${process.env.REACT_APP_API_URL}/music/files`, {
-            method: "GET"
+            method: "GET",
+            credentials:'include'
         }).then(function (res) {
             return res.json()
         }).then(res => {

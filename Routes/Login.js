@@ -8,7 +8,7 @@ var multer  = require('multer');
 
 const session=require('express-session');
 const upload = multer();
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -23,7 +23,7 @@ app.use(session({
 app.post("/onLogin",upload.none(),
  passport.authenticate('local', {
 failureRedirect: '/login/error' }),function(req, res) {
-  res.send({"success":true,id:req.user,message:"Login success"})
+  res.status(200).send({"success":true,id:req.user,message:"Login success"})
 })
 app.get('/error',(req,res)=>{
   res.send({"success":false,message:"Invalid Crendentials"})

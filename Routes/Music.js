@@ -14,7 +14,7 @@ const conn = mongoose.createConnection(dbConfig.url, {
 
 const app = express();
 
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -22,7 +22,6 @@ let uploadFile = multer();
 
 // Route for file upload
 app.post("/upload", uploadFile.single("file"), (req, res) => {
-  console.log(req.user);
   const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "uploads",
   });
@@ -33,6 +32,7 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
     readableTrackStream.push(null);
     mm.parseBuffer(req.file.buffer, req.file.mimetype, {
       fileSize: req.file.size,
+      _user:req.user.id
     }).then((md) => {
       gridFSBucket
         .find({ filename: btoa(md.common.title) })
@@ -44,9 +44,9 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
                 chunkSizeBytes: 1024,
                 metadata: md,
                 contentType: null,
-                aliases: null,
-              
-              }
+                aliases: null, 
+               
+              },
             );
             let id = writeStream.id;
             readableTrackStream.pipe(writeStream);
@@ -80,6 +80,7 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
 });
 
 app.get("/files", async (req, res) => {
+  console.log(req.user)
   try {
     const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",

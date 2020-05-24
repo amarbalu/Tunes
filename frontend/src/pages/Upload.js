@@ -16,7 +16,7 @@ const UploadLibrary=(props)=>{
             message.success(`${info.file.name} file uploaded successfully.`);
             setFileList(fileList.filter(check=>check.name !== info.file.name))
           } else if (status === 'error') {
-            message.error(`${info.file.name} ${info.file.response.message} `);
+            message.error(`${info.file.name} ${info.file.response?info.file.response.message:"Upload Errpr"} `);
             setFileList(fileList.filter(check=>check.type.indexOf("audio")>=0 ||check.type==="application/octet-stream"))
           }else{
         

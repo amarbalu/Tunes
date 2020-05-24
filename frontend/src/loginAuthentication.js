@@ -23,4 +23,14 @@ function fetchSecretSauce(){
         credentials:'include'
     })
 }
+async function AuthCheck(){
+  try{
+ await fetchSecretSauce();
+ return true
+  }catch(ex){
+    return false
+  }
+
+}
+export{AuthCheck};
 export default loginAuthentication;

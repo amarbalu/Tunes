@@ -13,6 +13,7 @@ import thunk from 'redux-thunk';
 require('dotenv').config({path: __dirname + '/.env'})
 const store=createStore(rootReducer,
     applyMiddleware(thunk));
+    
 ReactDOM.render(store.dispatch(loginAuthentication())?
 <Provider store={store}>
 <App />

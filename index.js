@@ -13,7 +13,7 @@ require("./mongodb");
 const app = express();
 const port = process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, "frontend/build")));
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(
   session({
     secret: "tHiSiSasEcRetStr",
@@ -41,12 +41,15 @@ app.post(
     res.send({ success: true, id: req.user, message: "Login success" });
   }
 );
+app.get("/login/error",()=>{
+  res.status(401).json({message:"Failed to Login"})
+})
 app.get("/error", (req, res) => {
   res.send({ success: false, message: "Invalid Crendentials" });
 });
 
 app.get("/login_auth", (req, res) => {
- console.log(req.session.id)
+ 
   if (req.isAuthenticated()) {
     res.send({ status: true, message: "user autheticated" });
   } else {

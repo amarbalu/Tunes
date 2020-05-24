@@ -6,7 +6,8 @@ const LoginService={
 function onLogin(formData){
     return fetch(`${process.env.REACT_APP_API_URL}/onLogin`,{
         method:"POST",
-        body:formData
+        body:formData,
+        credentials:'include'
     }).then(function(res){ return res.json(); }).catch(err=>console.log(err));
 }
 function onFacebookLogin(){
