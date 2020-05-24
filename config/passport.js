@@ -66,7 +66,7 @@ if(!user){
                 if(!user){
                     const register =new User({
                          username:profile.displayName,
-                         email:profile.emails[0].value,
+                        //  email:profile.emails[0].value,
                          facebook:{
                              id:profile.id,
                              token:accessToken

@@ -4,6 +4,7 @@ import SongsList from './SongsList.js';
 import Upload from './Upload.js';
 import FooterComp from './Footer.js';
 import {connect} from'react-redux'
+import AlbumContent from './AlbumContent.js';
 
 const antIcon = <img src={require("../images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
@@ -90,10 +91,6 @@ return (
       <div className="logo" />
       <Menu theme="dark" mode="inline"  defaultSelectedKeys={['songs']}
         defaultOpenKeys={['lib']}  onSelect={(item)=>menu(item)}>
-        {/* <Menu.Item key="home">
-          <Icon type="home" theme="filled" />
-          <span className="nav-text">Home</span>
-        </Menu.Item> */}
         <Menu.Item key="search">
           <Icon type="search" />
           <span className="nav-text">Search</span>
@@ -127,6 +124,8 @@ return (
         <Loader isshow={props.loader}/>
         {menuKeys==="add"?<Upload/>:null}
             {menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
+            {menuKeys==="artists"?<AlbumContent filterby="artists" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
+            {menuKeys==="albums"?<AlbumContent filterby="album" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
         </div>
       </Content>
       </div>

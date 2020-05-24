@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
 
 const initialState={
-    loading:false,can_proceed:false,loader:false
+    loading:false,can_proceed:false,loader:false,
+    songs:[]
 }
 const musicInitialState={
     metadata:null
@@ -24,6 +25,11 @@ const loginReducer = (state = initialState, action) => {
                     ...state,
                  loader:action.loader
                 }
+                case "SET_SONGS":
+                    return {
+                        ...state,
+                        songs:action.songs
+                    }
        default: return state
     }
  }
