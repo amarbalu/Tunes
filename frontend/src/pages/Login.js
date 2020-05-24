@@ -127,7 +127,7 @@ const changeValues=(e)=>{
          <div style={{display:"flex",justifyContent:"center"}}><span 
         >or</span></div>
          <div style={{display:"flex",justifyContent:"center"}}>
-      <a href={`${process.env.REACT_APP_API_URL}/login/auth/facebook`}>Login with Facebook</a>
+      {/* <a href={`${process.env.REACT_APP_API_URL}/login/auth/facebook`}>Login with Facebook</a> */}
       </div> 
       </div> 
       <div style={{display:"flex",justifyContent:"center"}}><a href="/Register" >Not Register? Create an account</a></div>

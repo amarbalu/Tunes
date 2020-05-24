@@ -38,6 +38,7 @@ app.get('/error',(req,res)=>{
 })
 
 app.get("/login_auth",(req,res)=>{
+  console.log(req.isAuthenticated())
   if(req.isAuthenticated()){
     res.send({"status":true,message:"user autheticated"});
   }else{

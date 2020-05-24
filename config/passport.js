@@ -14,7 +14,8 @@ module.exports=function(passport){
     
     passport.deserializeUser(function(email, done) {
         const user = User.findOne({email:email}).then(user=>{
-if(!user){
+if(user){
+    console.log('user',user)
     done(null,user)
 }
            

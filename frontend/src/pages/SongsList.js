@@ -17,11 +17,11 @@ const SongsList = (props) => {
         }).then(res => {
             if (!res.err) {
                 props.set_songs(res);
-                props.loader_songs(false);
             }
-        }).catch(err => console.log(err));
+            props.loader_songs(false);
+        }).catch(err => {props.loader_songs(false);console.log(err)});
     }
-    }, [])
+    })
     const deleteSong = (id, filename) => {
         fetch(`${process.env.REACT_APP_API_URL}/music/trashit/${id}`, {
             method: "DELETE",
