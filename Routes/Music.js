@@ -17,6 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 let uploadFile = multer();
 
 // Route for file upload
@@ -44,7 +45,7 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
                 metadata: md,
                 contentType: null,
                 aliases: null,
-                _user: req.user,
+              
               }
             );
             let id = writeStream.id;
@@ -96,23 +97,23 @@ app.get("/files", async (req, res) => {
   }
 });
 app.delete("/trashit/:trackID", async (req, res) => {
-  const bucket = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "uploads",
-  });
-
+  
   try {
-    var trackID = new ObjectID(req.params.trackID);
+    const bucket = new mongoose.mongo.GridFSBucket(conn.db, {
+      bucketName: "uploads",
+    });
+    bucket.delete(new ObjectID(req.params.trackID), function (error) {
+      if (!error) {
+        
+        res.status(201).json({
+          success: true,
+          message: `Record with id ${req.params.trackID} deleted successfully`,
+        });
+      }
+    });
   } catch (ex) {
     console.log(ex);
   }
-  bucket.delete(trackID, function (error) {
-    if (!error) {
-      res.json({
-        success: true,
-        message: `Record with id ${trackID} deleted successfully`,
-      });
-    }
-  });
 });
 app.get("/files/:trackID", async (req, res) => {
   const bucket = new mongoose.mongo.GridFSBucket(conn.db, {

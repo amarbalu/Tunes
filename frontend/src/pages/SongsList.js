@@ -7,11 +7,10 @@ const SongsList = (props) => {
 
 
     
-    useEffect(() => {
-       if(!props.songs.length){
+    useEffect(() => {   
         props.loader_songs(true);
         fetch(`${process.env.REACT_APP_API_URL}/music/files`, {
-            method: "GET",
+            method: "GET"
         }).then(function (res) {
             return res.json()
         }).then(res => {
@@ -20,8 +19,8 @@ const SongsList = (props) => {
             }
             props.loader_songs(false);
         }).catch(err => {props.loader_songs(false);console.log(err)});
-    }
-    })
+    
+    },[])
     const deleteSong = (id, filename) => {
         fetch(`${process.env.REACT_APP_API_URL}/music/trashit/${id}`, {
             method: "DELETE",

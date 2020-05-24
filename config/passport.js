@@ -9,18 +9,19 @@ const config =require('./passport.config')
 module.exports=function(passport){
     
     passport.serializeUser(function(user, done) {
-        done(null,user)
+       
+      
+        done(null,user.id)
     });
     
-    passport.deserializeUser(function(email, done) {
-        const user = User.findOne({email:email}).then(user=>{
-if(user){
-    console.log('user',user)
+    passport.deserializeUser(function(id, done) {
+       
+        User.findById(id).then(user=>{
+
     done(null,user)
-}
+
            
         })
-// done(null,user)
     });
     
 
@@ -28,7 +29,7 @@ if(user){
     passport.use('local',
         new localStrategy({usernameField:"email"},(email,password,done)=>{
            //Match User
-           
+          
            User.findOne({email:email}).then(
                 user=>{
                     
@@ -41,6 +42,7 @@ if(user){
                       
                         if(err)throw err;
                         if(isMatch){
+
                             return done(null,user)
                         }else{
                           return  done(null,false,{message:"Password is incorrect"});

@@ -11,7 +11,7 @@ import {
 } from 'antd'
 
 
-const Register=()=> {
+const Register=(props)=> {
     const[username,setUsername]=useState("");
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
@@ -139,11 +139,7 @@ const onBlurValues=(e)=>{
         formData.append("phoneNumber",phoneNumber);
         Service.onRegister(formData).then(response => {
           if(response.success){
-        setUsername("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        setPhoneNumber("");
+        props.history.replace("/Login")
           }}
           ).catch(err=>console.log("err"+err));
       }else{

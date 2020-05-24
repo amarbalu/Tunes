@@ -20,16 +20,16 @@ app.post("/onRegister",async(req,res)=>{
     if(register)
     return res.status(400).send("User already Registered");
     const{username,password,email,confirmPassword,phoneNumber}=req.fields;
+    const salt=await bcrypt.genSalt(10);
+   const hashed= await bcrypt.hash(password,salt);
      register =new User({
         username,
-        password,
+        password:hashed,
         email,
         confirmPassword,
         phoneNumber
     })
-    const salt=await bcrypt.genSalt(10);
-   const hashed= await bcrypt.hash(req.fields.password,salt);
-   register.password=hashed;
+  
 
     const result=await register.save();
    return res.send({success:true,email:result.email,message:"User saved successfully."})
