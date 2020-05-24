@@ -9,7 +9,7 @@ const config =require('./passport.config')
 module.exports=function(passport){
     
     passport.serializeUser(function(user, done) {
-        done(null,user)
+        done(null,user.email)
     });
     
     passport.deserializeUser(function(email, done) {
