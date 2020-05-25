@@ -43,7 +43,7 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
               btoa(md.common.title),
               {
                 chunkSizeBytes: 1024,
-                metadata: {common:md.common},
+                metadata: md,
                 contentType: null,
                 aliases: null, 
                
@@ -125,7 +125,7 @@ app.get("/files/:trackID", async (req, res) => {
   });
 
   try {
-    var trackID = new ObjectID(req.params.trackID);
+    var trackID = req.params.trackID;
   } catch (ex) {
     console.log(ex);
   }
