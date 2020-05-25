@@ -8,6 +8,7 @@ const UploadLibrary=(props)=>{
         name: 'file',
         multiple: true,
         action: `${process.env.REACT_APP_API_URL}/music/upload`,
+        withCredentials:true,
         onChange(info) {
           
           const fileList = [...info.fileList];

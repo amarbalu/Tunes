@@ -27,22 +27,23 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
   });
 
   try {
+    
     const readableTrackStream = new Readable();
     readableTrackStream.push(req.file.buffer);
     readableTrackStream.push(null);
     mm.parseBuffer(req.file.buffer, req.file.mimetype, {
-      fileSize: req.file.size,
-      _user:req.user.id
+      fileSize: req.file.size
     }).then((md) => {
       gridFSBucket
         .find({ filename: btoa(md.common.title) })
         .toArray((err, files) => {
           if (!files || files.length === 0) {
-            const writeStream = gridFSBucket.openUploadStream(
+            const writeStream = gridFSBucket.openUploadStreamWithId(
+              `id${req.user.id}ran${Math.random()}`,
               btoa(md.common.title),
               {
                 chunkSizeBytes: 1024,
-                metadata: md,
+                metadata: {common:md.common},
                 contentType: null,
                 aliases: null, 
                
@@ -80,12 +81,14 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
 });
 
 app.get("/files", async (req, res) => {
-  console.log(req.user)
+
   try {
+    const id=req.user.id
+    const regex=new RegExp(`^id${id}`);
     const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",
     });
-    await gridFSBucket.find().toArray((err, files) => {
+    await gridFSBucket.find({_id:regex}).toArray((err, files) => {
       if (!files || files.length === 0) {
         return res.json({
           err: "No files exists",
@@ -103,7 +106,7 @@ app.delete("/trashit/:trackID", async (req, res) => {
     const bucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",
     });
-    bucket.delete(new ObjectID(req.params.trackID), function (error) {
+    bucket.delete(req.params.trackID, function (error) {
       if (!error) {
         
         res.status(201).json({
