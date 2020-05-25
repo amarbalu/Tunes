@@ -8,6 +8,9 @@ const session = require("express-session");
 const passport = require("passport");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
+const redis=require("redis");
+const redisClient=redis.createClient();
+const redisStore=require('connect-redis')(session);
 const upload = multer();
 require("./mongodb");
 const app = express();
@@ -17,12 +20,15 @@ app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(
   session({
     secret: "tHiSiSasEcRetStr",
+    name:'_redisPractice',
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 60 * 60 * 1000,
+      maxAge:  60 * 1000,
+      secure:false
     },
+    store:new redisStore({host:'127.0.0.1',port:6379,client:redisClient,ttl: 60000})
   })
 );
 app.use(cookieParser());
@@ -65,6 +71,8 @@ app.use("/music", music);
 app.use("/login", login);
 app.get("/logout", (req, res) => {
   req.logOut();
+  req.session.destroy();
+  res.clearCookie("_redisPractice")
   res.send({ success: true, message: "logged out successfully" });
 });
 app.get("/", (req, res) => {

@@ -8,6 +8,11 @@ const mm = require("music-metadata");
 const btoa = require("btoa");
 const { Readable } = require("readable-stream");
 const ObjectID = require("bson-objectid");
+// const redis=require('redis')
+// const util=require('util')
+// const redisUrl="redis://127.0.0.1:6379";
+
+// const client=redis.createClient(redisUrl);
 const conn = mongoose.createConnection(dbConfig.url, {
   useNewUrlParser: true,
 });
@@ -82,20 +87,28 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
 
 app.get("/files", async (req, res) => {
 
-  try {
+  try {    
     const id=req.user.id
     const regex=new RegExp(`^id${id}`);
     const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",
     });
+//    client.get= util.promisify(client.get);
+//    const cache=await client.get(req.user.id);
+//    if(cache){
+//      console.log("From Cache")
+// res.json(JSON.parse(cache));
+//    }else{
     await gridFSBucket.find({_id:regex}).toArray((err, files) => {
       if (!files || files.length === 0) {
         return res.json({
           err: "No files exists",
         });
       }
+      // client.set(req.user.id,JSON.stringify(files))
       return res.json(files);
     });
+  // }
   } catch (ex) {
     console.log(ex);
   }
