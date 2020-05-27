@@ -5,7 +5,7 @@ import Bar from './AudioBar.js';
 import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
-  const { playing, setPlaying , curTime, duration, setClickedTime,setCurTime } = useAudioPlayer();
+  const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
     const player = useRef();
     const audio = document.getElementById("audio");

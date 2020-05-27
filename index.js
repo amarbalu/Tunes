@@ -9,6 +9,7 @@ const passport = require("passport");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const redis=require("redis");
+const csrf=require('csurf');
 const redisClient=redis.createClient();
 const redisStore=require('connect-redis')(session);
 const upload = multer();
@@ -30,16 +31,36 @@ app.use(
     },
     store:new redisStore({host:'127.0.0.1',port:6379,client:redisClient,ttl: 60000})
   })
-);
-app.use(cookieParser());
+  );
+  app.use(cookieParser());
+  app.use(csrf())
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function (err, req, res, next) {
+  if (err.code !== 'EBADCSRFTOKEN') return next(err)
+  res.status(403)
+  res.send({err:true,message:"Invalid Csrf Token"})
+})
+const authCheck=(req,res,next)=>{
+  if(req.user && req.user.id ){
+    next()
+  }else{
+   
+    res.status(401).json({message:"UnAuthorized"})
+  }
+}
+const csrfMiddleware=(req,res,next)=>{
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  
+  next();
+}
 
 require("./config/passport")(passport);
 
 app.post(
   "/onLogin",
-  upload.none(),
+  upload.none(),csrfMiddleware,
   passport.authenticate("local", {
     failureRedirect: "/login/error",
   }),
@@ -47,14 +68,14 @@ app.post(
     res.send({ success: true, id: req.user, message: "Login success" });
   }
 );
-app.get("/login/error",()=>{
+app.get("/login/error",csrfMiddleware,()=>{
   res.status(401).json({message:"Failed to Login"})
 })
-app.get("/error", (req, res) => {
+app.get("/error",csrfMiddleware, (req, res) => {
   res.send({ success: false, message: "Invalid Crendentials" });
 });
 
-app.get("/login_auth", (req, res) => {
+app.get("/login_auth",csrfMiddleware,authCheck, (req, res) => {
  
   if (req.isAuthenticated()) {
     res.send({ status: true, message: "user autheticated" });
@@ -62,20 +83,24 @@ app.get("/login_auth", (req, res) => {
     res.status(401).send({ status: false, message: "unAuthorised" });
   }
 });
-app.get("/profile", (req, res) => {
+app.get("/profile",csrfMiddleware,authCheck, (req, res) => {
   res.send(req.user);
 });
 
-app.use("/register", register);
-app.use("/music", music);
-app.use("/login", login);
+app.use("/register",csrfMiddleware,authCheck, register);
+app.use("/music",csrfMiddleware,authCheck, music);
+app.use("/login",csrfMiddleware,authCheck, login);
 app.get("/logout", (req, res) => {
+  res.clearCookie("_redisPractice", {domain: "127.0.0.1",path:'/'})
+  res.clearCookie("XSRF-TOKEN", {domain: "127.0.0.1",path:'/'})
+  res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
   req.session.destroy();
-  res.clearCookie("_redisPractice")
+  
   res.send({ success: true, message: "logged out successfully" });
 });
-app.get("/", (req, res) => {
+app.get("/",csrfMiddleware, (req, res) => {
+ 
   res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
 });
 

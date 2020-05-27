@@ -23,6 +23,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "crypto-browserify": "^3.11.0",
+    "csurf": "^1.11.0",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.16.2",

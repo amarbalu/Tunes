@@ -1,65 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import SongsLayout from './SongsLayout';
-
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import SongsLayout from "./SongsLayout";
+import Fetch from "../components/Fetch";
 
 const SongsList = (props) => {
-
-
-    
-    useEffect(() => {   
-        props.loader_songs(true);
-        fetch(`${process.env.REACT_APP_API_URL}/music/files`, {
-            method: "GET",
-            credentials:'include'
-        }).then(function (res) {
-            return res.json()
-        }).then(res => {
-            if (!res.err) {
-                props.set_songs(res);
-            }
-            props.loader_songs(false);
-        }).catch(err => {props.loader_songs(false);console.log(err)});
-    
-    },[])
-    const deleteSong = (id, filename) => {
-        fetch(`${process.env.REACT_APP_API_URL}/music/trashit/${id}`, {
-            method: "DELETE",
-        }).then(function (res) {
-            return res.json()
-        }).then(res => {
-
-            if (res.success) {
-                props.set_songs(props.songs.filter(check => check._id !== id))
-            }
-        }).catch(err => console.log(err));
-    }
-    return (
-        <React.Fragment>
-            <SongsLayout songs={props.songs} deleteSong={deleteSong}
-                songSelected={props.songSelected} />
-        </React.Fragment>
-    )
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        loader_songs: (value) => {
-            dispatch({
-                type: "LOADER_CARD",
-                loader: value
-            })
-        },
-        set_songs: (songs) => {
-            dispatch({
-                type: "SET_SONGS",
-                songs
-            })
+  useEffect(() => {
+    props.fetch(
+      `/music/files`,
+      "GET",null,
+      (res) => {
+        console.log(res)
+        if (!res.err) {
+          props.set_songs(res);
         }
-    }
-}
-const mapStateToProps = state => {
-    return {
-        songs: state.loginReducer.songs
-    }
-}
+      },
+      (err) => {
+        if(err.status===401){
+          props.history.push("/login")
+        }
+      }
+    );
+  }, []);
+  const deleteSong = (id, filename) => {
+    props.fetch(
+      `/music/trashit/${id}`,
+      "DELETE",null,
+      (res) => {
+        if (res.success) {
+          props.set_songs(props.songs.filter((check) => check._id !== id));
+        }
+      },
+      (err) => {
+        if(err.status===401){
+          props.history.push("/login")
+        }
+      }
+    );
+  };
+  return (
+    <React.Fragment>
+      <SongsLayout
+        songs={props.songs}
+        deleteSong={deleteSong}
+        songSelected={props.songSelected}
+      />
+    </React.Fragment>
+  );
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loader_songs: (value) => {
+      dispatch({
+        type: "LOADER_CARD",
+        loader: value,
+      });
+    },
+    set_songs: (songs) => {
+      dispatch({
+        type: "SET_SONGS",
+        songs,
+      });
+    },
+    fetch:(appendUrl,type,payload,success,failure)=>
+    dispatch(Fetch(appendUrl,type,payload,success,failure))
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    songs: state.loginReducer.songs,
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(SongsList);

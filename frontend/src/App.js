@@ -9,7 +9,7 @@ import {connect} from 'react-redux'
 import PrivateRoute from './components/privateRoutes';
 
 import './css/App.css';
-import {Spin,Icon} from 'antd';
+import {Spin} from 'antd';
 import Login from './pages/Login';
 
 const history=createBrowserHistory();
@@ -24,7 +24,7 @@ const routes=[
 {path:"/Homepage",component:Homepage}
 ]
 
-const antIcon = <img src={require("./images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
+const antIcon = <img alt="tunes" src={require("./images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
   
   <Spin size="large" className={"spinner " + (props.isshow ? "show" : "hide")} 
@@ -41,7 +41,7 @@ const App=(propsValue)=> {
 <Switch>
  {routes.map((props, index) =>
  props.path === "/Dashboard"?
- <Route  exact key={props.path} path={props.path} component={props.component}/>
+ <PrivateRoute  exact key={props.path} path={props.path} component={props.component}/>
  : <Route exact key={props.path} path={props.path} component={props.component}/>
 
  )}

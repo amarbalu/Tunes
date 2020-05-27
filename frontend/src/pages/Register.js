@@ -1,6 +1,4 @@
 import React,{useState} from 'react';
-import FormData from 'form-data';
-import Service from '../Service/RegisterService';
 import '../css/App.css';
 import {
   Form,
@@ -8,7 +6,9 @@ import {
   Row,
   Button,
   Card
-} from 'antd'
+} from 'antd';
+import { connect } from "react-redux";
+import Fetch from '../components/Fetch';
 
 
 const Register=(props)=> {
@@ -137,11 +137,15 @@ const onBlurValues=(e)=>{
         formData.append("confirmPassword",confirmPassword);
         formData.append("email",email);
         formData.append("phoneNumber",phoneNumber);
-        Service.onRegister(formData).then(response => {
+        props.fetch(`/register/onRegister`,"POST",formData,response => {
           if(response.success){
         props.history.replace("/Login")
-          }}
-          ).catch(err=>console.log("err"+err));
+          }} , (err) => {
+            if(err.status===401){
+              props.history.push("/login")
+            }
+          })
+        
       }else{
         if(!username && !helpUsername){
           setHelpUsername("Username is required")
@@ -200,5 +204,12 @@ const onBlurValues=(e)=>{
     </div>
   );
 }
-const WrappedRegistrationForm = Form.create({ name: 'register' })(Register);
-export default WrappedRegistrationForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetch:(appendUrl,type,payload,success,failure)=>
+    dispatch(Fetch(appendUrl,type,payload,success,failure))
+  };
+};
+const WrappedNormalLoginForm = Form.create({ name: "register" })(Register);
+
+export default connect(null, mapDispatchToProps)(WrappedNormalLoginForm);

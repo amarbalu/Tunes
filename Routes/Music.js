@@ -86,7 +86,7 @@ app.post("/upload", uploadFile.single("file"), (req, res) => {
 });
 
 app.get("/files", async (req, res) => {
-
+console.log(req.csrfToken)
   try {    
     const id=req.user.id
     const regex=new RegExp(`^id${id}`);

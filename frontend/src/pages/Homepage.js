@@ -2,7 +2,7 @@ import React from "react";
 import { Layout, Button,Row, Col,Menu,Icon } from 'antd';
 
 const Homepage=(props)=>{
-    const { Header, Footer, Sider, Content } = Layout;
+    const { Header, Footer, Content } = Layout;
 return(
     <div style={{height:"100%"}} >
 
@@ -39,7 +39,7 @@ return(
         <Content className="homepageContent"  >
 
 <Row type="flex" style={{height:"calc(100% - 64px)",alignItems:"Center"}}>
-  <Col xs={{span:21,offset:3}}  md={{span:16,offset:8}} lg={{span:15,offset:9}} lg={{span:15,offset:9}}xl={{span:12,offset:4}}>
+  <Col xs={{span:21,offset:3}}  md={{span:16,offset:8}} lg={{span:15,offset:9}} xl={{span:12,offset:4}}>
     <h1 style={{color:"#fafafa",fontFamily:"sans-serif"
     }} >STAY TUNED...</h1>
     <Button  style={{width: "270px",fontWeight:"bold",

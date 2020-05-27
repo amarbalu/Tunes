@@ -5,8 +5,9 @@ import Upload from './Upload.js';
 import FooterComp from './Footer.js';
 import {connect} from'react-redux'
 import AlbumContent from './AlbumContent.js';
+import Fetch from '../components/Fetch.js';
 
-const antIcon = <img src={require("../images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
+const antIcon = <img alt="Tunes" src={require("../images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
 const Loader = props => <div className={props.isshow ? "spinner-back  show spinnerLayout" : "hide"}>
   
   <Spin size="large" className={"spinner " + (props.isshow ? "show" : "hide")} 
@@ -30,15 +31,22 @@ const Dashboard=(props)=>{
     }
 
     const onLogout=()=>{
-        fetch(`${process.env.REACT_APP_API_URL}/logout`,{
-        method:"GET"
-    }).then(res=>{
-            return res.json()
-        }).then(res => {
-          if(res.success){
+      props.fetch(
+        `/logout`,
+        "GET",
+        null,
+        async (response) => {
+          if (response.success) {
+           
             props.history.push("/Homepage")
+          } 
+        },
+        (err) => {
+          if(err.status===401){
+            props.history.push("/login")
           }
-        }).catch(err=>console.log(err));
+        }
+      );
     }
 return (
       <div style={{height:"100%"}}>
@@ -147,7 +155,9 @@ const mapDispatchToProps=dispatch=>{
         type:"LOADER_CARD",
         loader:value
       })
-    }
+    },
+    fetch:(appendUrl,type,payload,success,failure)=>
+    dispatch(Fetch(appendUrl,type,payload,success,failure))
   }
 }
 const mapStateToProps=state=>{

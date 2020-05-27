@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from "react";
 import { connect } from "react-redux";
-import { Col, Row, Icon,Card } from 'antd';
+import {  Row } from 'antd';
 import SongsLayout from "./SongsLayout";
 
 const AlbumContent=(props)=>{
-    const { Meta } = Card;
+   
     const[map,setMap]=useState({});
     useEffect(()=>{
         const map={};
