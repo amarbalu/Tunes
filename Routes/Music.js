@@ -19,7 +19,7 @@ const conn = mongoose.createConnection(dbConfig.url, {
 
 const app = express();
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
