@@ -26,10 +26,10 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge:  60 * 1000,
+      maxAge:  60 * 60 * 1000,
       secure:false
     },
-    store:new redisStore({host:'127.0.0.1',port:6379,client:redisClient,ttl: 60000})
+    store:new redisStore({host:'redis-15677.c232.us-east-1-2.ec2.cloud.redislabs.com',port:15677,password:"Ab8qP1TcWVvAIXX5FGYo4yc5pYEjoZrP",client:redisClient,ttl: 3600000})
   })
   );
   app.use(cookieParser());
