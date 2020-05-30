@@ -101,16 +101,15 @@ app.use("/music",csrfMiddleware,authCheck, music);
 app.use("/login",csrfMiddleware,authCheck, login);
 app.get("/logout", (req, res) => {
   // res.clearCookie("_redisPractice", {domain: "127.0.0.1",path:'/'})
-  // res.clearCookie("XSRF-TOKEN", {domain: "127.0.0.1",path:'/'})
-  // res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
+  res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
+  res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
   req.session.destroy();
   
   res.send({ success: true, message: "logged out successfully" });
 });
 app.get("*",csrfMiddleware, (req, res) => {
- 
-  res.sendFile(path.join(__dirname + "/frontend/build"));
+  res.sendFile(path.join(`${__dirname}/frontend/build/index.html"`));
 });
 
 app.listen(port);
