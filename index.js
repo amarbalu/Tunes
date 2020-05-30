@@ -25,7 +25,7 @@ const upload = multer();
 require("./mongodb");
 const app = express();
 const port = process.env.PORT || 4000;
-app.use(express.static(path.join(__dirname, "frontend/build")));
+
 app.use(cors({credentials: true}));
 app.use(
   session({
@@ -56,6 +56,7 @@ app.use(function (err, req, res, next) {
   res.status(403)
   res.send({err:true,message:"Invalid Csrf Token"})
 })
+app.use(express.static(path.join(__dirname, "frontend/build")));
 const authCheck=(req,res,next)=>{
   if(req.user && req.user.id ){
     next()
