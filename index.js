@@ -50,7 +50,6 @@ const csrfMiddleware=(req,res,next)=>{
   res.locals.csrfToken = req.csrfToken();
   next();
 }
-app.use(csrfMiddleware)
 app.use(function (err, req, res, next) {
   if (err.code !== 'EBADCSRFTOKEN') return next(err)
   res.status(403)
@@ -84,7 +83,7 @@ app.get("/error", (req, res) => {
   res.send({ success: false, message: "Invalid Crendentials" });
 });
 
-app.get("/login_auth",authCheck, (req, res) => {
+app.get("/login_auth",csrfMiddleware,authCheck, (req, res) => {
  
   if (req.isAuthenticated()) {
     res.send({ status: true, message: "user autheticated" });
@@ -92,16 +91,16 @@ app.get("/login_auth",authCheck, (req, res) => {
     res.status(401).send({ status: false, message: "unAuthorised" });
   }
 });
-app.get("/profile",authCheck, (req, res) => {
+app.get("/profile",csrfMiddleware,authCheck, (req, res) => {
   res.send(req.user);
 });
 
-app.use("/register",authCheck, register);
-app.use("/music",authCheck, music);
-app.use("/login",authCheck, login);
+app.use("/register",csrfMiddleware,authCheck, register);
+app.use("/music",csrfMiddleware,authCheck, music);
+app.use("/login",csrfMiddleware,authCheck, login);
 app.get("/logout", (req, res) => {
   // res.clearCookie("_redisPractice", {domain: "127.0.0.1",path:'/'})
-  // res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
+  res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
   // res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
   req.session.destroy();
