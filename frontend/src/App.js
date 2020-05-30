@@ -14,14 +14,14 @@ import Login from './pages/Login';
 
 const history=createBrowserHistory();
 const routes=[
-{path:"/Login",component:Login}
+{path:"/loginpage",component:Login}
 
 ,
-{path:"/Register",component:Register}
+{path:"/register",component:Register}
 
 ,
-{path:"/Dashboard",component:Dashboard},
-{path:"/Homepage",component:Homepage}
+{path:"/dashboard",component:Dashboard},
+{path:"/homepage",component:Homepage}
 ]
 
 const antIcon = <img alt="tunes" src={require("./images/tunes_icon.svg")} style={{width:"60px",height:"60px"}}/>;
