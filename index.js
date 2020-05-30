@@ -56,7 +56,7 @@ app.use(function (err, req, res, next) {
   res.status(403)
   res.send({err:true,message:"Invalid Csrf Token"})
 })
-app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.static("frontend/build"));
 const authCheck=(req,res,next)=>{
   if(req.user && req.user.id ){
     next()
