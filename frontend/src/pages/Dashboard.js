@@ -38,12 +38,12 @@ const Dashboard=(props)=>{
         async (response) => {
           if (response.success) {
            
-            props.history.push("/Homepage")
+            props.history.push("/homepage")
           } 
         },
         (err) => {
           if(err.status===401){
-            props.history.push("/login")
+            props.history.push("/loginpage")
           }
         }
       );
