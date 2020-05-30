@@ -24,11 +24,11 @@ return(
         
         style={{ lineHeight: '64px',backgroundColor:"#090909" }}
       >
-         <Menu.Item key="signup"  onClick={()=>{props.history.push("/Register")}}>Signup</Menu.Item>
+         <Menu.Item key="signup"  onClick={()=>{props.history.push("/registerpage")}}>Signup</Menu.Item>
         
          
            
-            <Menu.Item key="login"  onClick={()=>{props.history.push("/Login")}} >Login</Menu.Item>
+            <Menu.Item key="login"  onClick={()=>{props.history.push("/loginpage")}} >Login</Menu.Item>
           
         
        
