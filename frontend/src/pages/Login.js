@@ -33,7 +33,7 @@ const Login = (props) => {
         (err) => {
           console.log(err)
           if(err.status===401){
-            props.history.push("/login")
+            props.history.push("/loginpage")
           }
         }
       );
