@@ -17,7 +17,7 @@ const routes=[
 {path:"/loginpage",component:Login}
 
 ,
-{path:"/register",component:Register}
+{path:"/registerpage",component:Register}
 
 ,
 {path:"/dashboard",component:Dashboard},
