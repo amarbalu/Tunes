@@ -14,10 +14,13 @@ require('dotenv').config({path: __dirname + '/.env'})
 const store=createStore(rootReducer,
     applyMiddleware(thunk));
     
-ReactDOM.render(store.dispatch(loginAuthentication())?
+ReactDOM.render(
+    // store.dispatch(loginAuthentication())?
 <Provider store={store}>
 <App />
-</Provider>:null, document.getElementById('root'));
+</Provider>
+// :null
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
