@@ -10,7 +10,7 @@ const Fetch=(appendUrl,type,payload,success,failure)=>{
       await  dispatch(loader(true))
       await   fetch(`${process.env.REACT_APP_API_URL}${appendUrl}`,{
             headers:{
-                "CSRF-Token":document.cookie.split("=")[1]
+                "CSRF-Token":document.cookie.split("=")[2]
             },
             method:type,
             credentials:'include',
