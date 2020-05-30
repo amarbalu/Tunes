@@ -103,7 +103,7 @@ app.use("/music",authCheck, music);
 app.use("/login",authCheck, login);
 app.get("/logout", (req, res) => {
   // res.clearCookie("_redisPractice", {domain: "127.0.0.1",path:'/'})
-  res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
+  //res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
   // res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
   req.session.destroy();
