@@ -10,7 +10,16 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const redis=require("redis");
 const csrf=require('csurf');
-const redisClient=redis.createClient();
+const redisClient=redis.createClient({
+  host:'redis-15677.c232.us-east-1-2.ec2.cloud.redislabs.com',port:15677
+});
+redisClient.auth("Ab8qP1TcWVvAIXX5FGYo4yc5pYEjoZrP",(err,response)=>{
+if(err){
+  throw err
+}else{
+  console.log(response)
+}
+})
 const redisStore=require('connect-redis')(session);
 const upload = multer();
 require("./mongodb");
@@ -29,7 +38,7 @@ app.use(
       maxAge:  60 * 60 * 1000,
       secure:false
     },
-    store:new redisStore({host:'redis-15677.c232.us-east-1-2.ec2.cloud.redislabs.com',port:15677,password:"Ab8qP1TcWVvAIXX5FGYo4yc5pYEjoZrP",client:redisClient,ttl: 3600000})
+    store:new redisStore({client:redisClient,ttl: 3600000})
   })
   );
   app.use(cookieParser());
