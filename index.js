@@ -108,7 +108,7 @@ app.get("/logout", (req, res) => {
   
   res.send({ success: true, message: "logged out successfully" });
 });
-app.get("*",csrfMiddleware, (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(`${__dirname}/frontend/build/index.html"`));
 });
 
