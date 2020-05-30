@@ -106,7 +106,7 @@ app.get("/logout", (req, res) => {
   //res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
   // res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
-  req.session.destroy();
+  //req.session.destroy();
   
   res.send({ success: true, message: "logged out successfully" });
 });
