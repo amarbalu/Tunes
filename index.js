@@ -101,8 +101,8 @@ app.use("/music",csrfMiddleware,authCheck, music);
 app.use("/login",csrfMiddleware,authCheck, login);
 app.get("/logout", (req, res) => {
   // res.clearCookie("_redisPractice", {domain: "127.0.0.1",path:'/'})
-  res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
-  res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
+  // res.clearCookie("XSRF-TOKEN", {expires: new Date(),path:'/'})
+  // res.cookie("_redisPractice", '', { expires: new Date(), path: '/' })
   req.logOut();
   req.session.destroy();
   
