@@ -25,7 +25,7 @@ const upload = multer();
 require("./mongodb");
 const app = express();
 const port = process.env.PORT || 4000;
-app.use(express.static(path.join(__dirname, "frontend/build")));
+// app.use(express.static(path.join(__dirname, "frontend/build")));
 app.use(cors({credentials: true}));
 app.use(
   session({
