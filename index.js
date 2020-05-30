@@ -111,6 +111,6 @@ app.get("/logout", (req, res) => {
   res.send({ success: true, message: "logged out successfully" });
 });
 app.get("*", (req, res) => {
-  res.sendFile(path.join(`${__dirname}/frontend/build/index.html"`));
+  res.sendFile(path.join(__dirname,`frontend`,`build`,`index.html`));
 });
 app.listen(port);
