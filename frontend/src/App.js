@@ -47,7 +47,7 @@ const App=(propsValue)=> {
  )}
     
 
-    <Redirect to="/homePage"></Redirect> 
+    <Redirect to="/homepage"></Redirect> 
 </Switch>  
   </BrowserRouter>
  
