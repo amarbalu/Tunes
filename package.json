@@ -42,6 +42,7 @@
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
+    "react-h5-audio-player": "^3.1.0",
     "readable-stream": "^3.4.0",
     "redis": "^3.0.2"
   }

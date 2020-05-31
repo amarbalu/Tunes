@@ -82,7 +82,7 @@ return (
       </Col>
     </Row>
     </Header>
-    <div style={{    height: "calc(100% - 100px)",
+    <div style={{    height: "calc(100% - 154px)",
     display: "flex",position:"relative",top:"64px"
 
 }}>
@@ -93,7 +93,7 @@ return (
       className="sidebar-menu"
       style={{
       position:"fixed"
-      ,left:"0",zIndex:"1000"
+      ,left:"0",zIndex:"1000",height: "calc(100% - 154px)"
     }}
     >
       <div className="logo" />
@@ -119,10 +119,10 @@ return (
         <Menu.Item key="songs">Songs</Menu.Item>
           </Menu.SubMenu>
         
-        <Menu.Item key="add">
+        {process.env.NODE_ENV!=="production"?<Menu.Item key="add">
         <Icon type="cloud-upload" />
           <span className="nav-text">Add to your library</span>
-        </Menu.Item>
+        </Menu.Item>:null}
       </Menu>
     </Sider>
     </div>

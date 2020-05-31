@@ -1,42 +1,44 @@
 import React,{useRef, useEffect} from 'react';
 import {Layout,Row, Col,Icon,Card} from 'antd';
-import useAudioPlayer from './useAudioPlayer';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+// import useAudioPlayer from './useAudioPlayer';
 import Bar from './AudioBar.js';
 import {connect} from 'react-redux'
 
 const FooterComp=(props)=>{
-  const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
+  // const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
     const {Footer} = Layout;
-    const player = useRef();
-    const audio = document.getElementById("audio");
-    useEffect(() =>{
-      const audio = document.getElementById("audio");
-      audio.addEventListener("pause",()=> {
-        audio.pause()
-setPlaying(false)
-      },false)
-      audio.addEventListener("play",()=> {
-        audio.play()
-setPlaying(true)
-      },false)
-    },[])
+//     const player = useRef();
+//     const audio = document.getElementById("audio");
+//     useEffect(() =>{
+//       const audio = document.getElementById("audio");
+//       audio.addEventListener("pause",()=> {
+//         audio.pause()
+// setPlaying(false)
+//       },false)
+//       audio.addEventListener("play",()=> {
+//         audio.play()
+// setPlaying(true)
+//       },false)
+//     },[])
 
-  const timeUpdate=(time)=>{
-    setClickedTime(time)
-  }
-  const handleClick=(props)=> {
-    if (playing) {
-      audio.pause();
-      document.title="Tunes"
-    } else {
-      document.title=props.metadata.common.title;
-       audio.play();
-    }
-    setPlaying(!playing)
- };
+//   const timeUpdate=(time)=>{
+//     setClickedTime(time)
+//   }
+//   const handleClick=(props)=> {
+//     if (playing) {
+//       audio.pause();
+//       document.title="Tunes"
+//     } else {
+//       document.title=props.metadata.common.title;
+//        audio.play();
+//     }
+//     setPlaying(!playing)
+//  };
     return(
-        <Footer style={{ textAlign: 'center',position: "fixed",width: "100%",bottom: "0px",padding:"12px",height:"75px"// ,display:props.metadata?"block":"none"
-        }}>
+        <Footer style={{ textAlign: 'center',position: "fixed",width: "100%",bottom: "0px",padding:"12px",height:"75px",// ,display:props.metadata?"block":"none"
+        height: "90px" }}>
           <Row type="flex">
           <Col xs={24} sm={10}>
             <Row>
@@ -62,18 +64,22 @@ setPlaying(true)
   </div>
   </Col>
   <Col xs={{span:3}}>
-  <div style={{display:"flex",justifyContent:"flex-end"}}> 
+  {/* <div style={{display:"flex",justifyContent:"flex-end"}}> 
           {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large"}} onClick={()=>handleClick(props)} />:
           <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large"}}   onClick={()=>handleClick(props)}/>}
   
 
-  </div>
+  </div> */}
   </Col>
   </Row>
           </Col>
           <Col xs={{span:0}} sm={14}>
-          <audio id="audio" ref={player} src={props.audioSrc}   />
-   <Bar curTime={curTime} duration={duration} setClickedTime={timeUpdate}/>        
+          <AudioPlayer
+   
+    src={props.audioSrc}
+    onPlay={e => console.log("onPlay")}/>
+          {/* <audio id="audio" ref={player} src={props.audioSrc}   />
+   <Bar curTime={curTime} duration={duration} setClickedTime={timeUpdate}/>         */}
           </Col>
           
         </Row>
