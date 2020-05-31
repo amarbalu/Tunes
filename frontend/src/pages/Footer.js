@@ -75,7 +75,7 @@ const FooterComp=(props)=>{
           </Col>
           <Col xs={{span:0}} sm={14}>
           <AudioPlayer
-   
+   autoPlay
     src={props.audioSrc}
     onPlay={e => console.log("onPlay")}/>
           {/* <audio id="audio" ref={player} src={props.audioSrc}   />

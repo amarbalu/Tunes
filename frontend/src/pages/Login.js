@@ -120,7 +120,7 @@ const Login = (props) => {
           </div>
           <Form.Item validateStatus={validateStatusEmail} help={helpEmail}>
             <Input
-              size="large"
+              size="large" autoFocus
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
               placeholder="Email"
               value={email}

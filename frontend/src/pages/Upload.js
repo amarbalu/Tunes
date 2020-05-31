@@ -9,6 +9,10 @@ const UploadLibrary=(props)=>{
         multiple: true,
         action: `${process.env.REACT_APP_API_URL}/music/upload`,
         withCredentials:true,
+        headers:{"CSRF-Token":
+        document.cookie.split("=")[0]==="XSRF-TOKEN"?
+        document.cookie.split("=")[1]:
+        document.cookie.split("=")[2]},
         onChange(info) {
           
           const fileList = [...info.fileList];
