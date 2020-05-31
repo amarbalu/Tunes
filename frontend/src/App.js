@@ -40,8 +40,8 @@ const App=(propsValue)=> {
    
 <Switch>
  {routes.map((props, index) =>
- props.path === "/Dashboard"?
- <Route  exact key={props.path} path={props.path} component={props.component}/>
+ props.path === "/dashboard"?
+ <PrivateRoute  exact key={props.path} path={props.path} component={props.component}/>
  : <Route exact key={props.path} path={props.path} component={props.component}/>
 
  )}

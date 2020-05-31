@@ -1,5 +1,5 @@
 const express=require('express');
-const app = express();
+const app = express.Router();
 const formidableMiddleware = require('express-formidable');
 const {validateUser,User}=require('../collections/UserCollection');
 const bcrypt=require('bcrypt');

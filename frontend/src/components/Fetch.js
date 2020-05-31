@@ -10,18 +10,22 @@ const Fetch=(appendUrl,type,payload,success,failure)=>{
       await  dispatch(loader(true))
       await   fetch(`${process.env.REACT_APP_API_URL}${appendUrl}`,{
             headers:{
-                "CSRF-Token":document.cookie.split("=")[2]
+                "CSRF-Token":
+                document.cookie.split("=")[0]==="XSRF-TOKEN"?
+                document.cookie.split("=")[1]:
+                document.cookie.split("=")[2]
             },
             method:type,
             credentials:'include',
             body:type!=="GET"?payload:null
         }).then(res=>res.json()).then(async res=>{
            await dispatch(loader(false))
-           
-           await success(res)
+           if(success){
+           await success(res)}
         }).catch(async ex=>{
            await dispatch(loader(false))
-            await failure(ex)
+           if(failure){
+            await failure(ex)}
         })
     }
 }

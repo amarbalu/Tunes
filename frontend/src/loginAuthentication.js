@@ -1,36 +1,37 @@
-function loginAuthentication(){
-    return function (dispatch) {
-        return fetchSecretSauce().then(
-          response => dispatch(
-              {
-                type:'LOGIN_AUTH',
-                can_proceed:response.status
-              }
-          )
-        ).catch(
-            ex=>
-            dispatch( {
-                type:'LOGIN_AUTH',
-                can_proceed:false
-              })
-        );
-      };
+import Fetch from "./components/Fetch";
+
+function loginAuthentication() {
+  return function (dispatch) {
+    dispatch(
+      Fetch(
+        `/login_auth`,
+        "GET",
+        null,
+        () =>
+          dispatch({
+            type: "LOGIN_AUTH",
+            can_proceed: true,
+          }),
+        () =>
+          dispatch({
+            type: "LOGIN_AUTH",
+            can_proceed: false,
+          })
+      )
+    );
+  };
 }
 
-function fetchSecretSauce(){
-    return fetch(`${process.env.REACT_APP_API_URL}/login_auth`,{
-        method:"GET",
-        credentials:'include'
-    })
+function fetchSecretSauce() {
+  return Fetch(`/login_auth`, "GET", null, null, null);
 }
-async function AuthCheck(){
-  try{
- await fetchSecretSauce();
- return true
-  }catch(ex){
-    return false
+async function AuthCheck() {
+  try {
+    await fetchSecretSauce();
+    return true;
+  } catch (ex) {
+    return false;
   }
-
 }
-export{AuthCheck};
+export { AuthCheck, fetchSecretSauce };
 export default loginAuthentication;

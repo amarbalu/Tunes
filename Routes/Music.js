@@ -7,22 +7,11 @@ const dbConfig = require("../config/database.config.js");
 const mm = require("music-metadata");
 const btoa = require("btoa");
 const { Readable } = require("readable-stream");
-const ObjectID = require("bson-objectid");
-// const redis=require('redis')
-// const util=require('util')
-// const redisUrl="redis://127.0.0.1:6379";
 
-// const client=redis.createClient(redisUrl);
+const app = express.Router();
 const conn = mongoose.createConnection(dbConfig.url, {
   useNewUrlParser: true,
 });
-
-const app = express();
-
-app.use(cors({credentials: true}));
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
 let uploadFile = multer();
 
 // Route for file upload

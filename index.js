@@ -10,23 +10,29 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const redis=require("redis");
 const csrf=require('csurf');
+const dbConfig = require('./config/database.config.js');
 const redisClient=redis.createClient({
-  host:'redis-15677.c232.us-east-1-2.ec2.cloud.redislabs.com',port:15677
+  host:dbConfig.redis_host,port:dbConfig.redis_port
 });
-redisClient.auth("Ab8qP1TcWVvAIXX5FGYo4yc5pYEjoZrP",(err,response)=>{
-if(err){
-  throw err
-}else{
-  console.log(response)
-}
+if(process.env.NODE_ENV === "production"){
+
+  redisClient.auth(dbConfig.redis_pwd,(err,response)=>{
+  if(err){
+    throw err
+  }else{
+    console.log(response)
+  }
 })
+}
 const redisStore=require('connect-redis')(session);
 const upload = multer();
 require("./mongodb");
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors({credentials: true}));
+app.use(cors(process.env.NODE_ENV==="production"?{credentials: true}:{
+  credentials: true,origin:"http://localhost:3000"
+}));
 app.use(
   session({
     secret: "tHiSiSasEcRetStr",
@@ -34,9 +40,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      httpOnly: false,
+      httpOnly: process.env.NODE_ENV==="production"?false:true,
       maxAge:  60 * 60 * 1000,
-      // secure:false
+      secure: process.env.NODE_ENV!=="production"?false:true
     },
     store:new redisStore({client:redisClient,ttl: 3600000})
   })

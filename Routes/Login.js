@@ -2,32 +2,8 @@
 const express=require('express');
 const passport=require('passport');
 const bodyParser=require('body-parser');
-const cors = require('cors');
-const app = express();
+const app = express.Router();
 var multer  = require('multer');
-
-const session=require('express-session');
-const upload = multer();
-app.use(cors({credentials: true}));
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(session({
-  secret: "tHiSiSasEcRetStr",
-  resave: true,
-  saveUninitialized: true }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  require('../config/passport')(passport);
-
-app.post("/onLogin",upload.none(),
- passport.authenticate('local', {
-failureRedirect: '/login/error' }),function(req, res) {
-  res.status(200).send({"success":true,id:req.user,message:"Login success"})
-})
-app.get('/error',(req,res)=>{
-  res.send({"success":false,message:"Invalid Crendentials"})
-})
 app.get("/auth/facebook/callback",passport.authenticate('facebook'
 , {successRedirect : '/dashboard',
   failureRedirect: '/login/error' }),function(req, res) {
