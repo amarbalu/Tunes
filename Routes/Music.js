@@ -131,6 +131,8 @@ app.get("/files/:trackID", async (req, res) => {
   } catch (ex) {
     console.log(ex);
   }
+  res.set('content-type','audio/mp3')
+  res.set('accept-ranges','bytes')
   let downloadStream = await bucket.openDownloadStream(trackID);
 
   downloadStream.on("data", (chunk) => {

@@ -16,17 +16,25 @@ const Loader = props => <div className={props.isshow ? "spinner-back  show spinn
 </div>
 const Dashboard=(props)=>{
     const { Header, Content, Sider } = Layout;
-    const [menuKeys,setMenuKeys]=useState("songs");
-    const [audioSrc,setAudioSrc]=useState("");
-  
-   
+    const [state,setState]=useState({
+      menuKeys:"songs",
+      audioSrc:"",
+      songid:""
+    })
 
     const menu=(item)=>{
-      setMenuKeys(item.key)
+      setState({
+        ...state,
+        menuKeys:item.key
+      })
     }
 
     const songSelected=(id,filename,metadata)=>{
-      setAudioSrc(`${process.env.REACT_APP_API_URL}/music/files/${id}`)
+      setState({
+        ...state,
+        audioSrc:`${process.env.REACT_APP_API_URL}/music/files/${id}`,
+        songid:id
+      })
       props.loading_music(metadata);
     }
 
@@ -130,15 +138,15 @@ return (
       <Content style={{margin:"15px",marginBottom:'52px'}} >
         <div style={{ background: '#fff', minHeight: 360 }}>
         <Loader isshow={props.loader}/>
-        {menuKeys==="add"?<Upload/>:null}
-            {menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
-            {menuKeys==="artists"?<AlbumContent filterby="artists" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
-            {menuKeys==="albums"?<AlbumContent filterby="album" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
+        {state.menuKeys==="add"?<Upload/>:null}
+            {state.menuKeys==="songs"?<SongsList songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
+            {state.menuKeys==="artists"?<AlbumContent filterby="artists" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
+            {state.menuKeys==="albums"?<AlbumContent filterby="album" songSelected={(id,filename,metadata)=>songSelected(id,filename,metadata)}/>:null}
         </div>
       </Content>
       </div>
     </div>
-      <FooterComp audioSrc={audioSrc}/>
+      <FooterComp audioSrc={state.audioSrc} songid={state.songid}/>
   </div>
   
 );
