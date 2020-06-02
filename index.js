@@ -84,7 +84,7 @@ app.post(
     res.send({ success: true, id: req.user, message: "Login success" });
   }
 );
-app.get("/login/error",()=>{
+app.get("/login/error",(req,res)=>{
   res.status(401).json({message:"Failed to Login"})
 })
 app.get("/error", (req, res) => {

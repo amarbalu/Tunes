@@ -82,22 +82,14 @@ console.log(req.csrfToken)
     const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",
     });
-//    client.get= util.promisify(client.get);
-//    const cache=await client.get(req.user.id);
-//    if(cache){
-//      console.log("From Cache")
-// res.json(JSON.parse(cache));
-//    }else{
     await gridFSBucket.find({_id:regex}).toArray((err, files) => {
       if (!files || files.length === 0) {
         return res.json({
           err: "No files exists",
         });
       }
-      // client.set(req.user.id,JSON.stringify(files))
       return res.json(files);
     });
-  // }
   } catch (ex) {
     console.log(ex);
   }
@@ -125,27 +117,118 @@ app.get("/files/:trackID", async (req, res) => {
   const bucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "uploads",
   });
-
   try {
-    var trackID = req.params.trackID;
+    const trackID = req.params.trackID; 
+    await bucket.find({_id:trackID}).toArray((err, files) => {
+      if (!files || files.length === 0) {
+        return res.status(404).json({
+          err: "No files exists",
+        });
+      }
+      const responseHeaders = {};
+     const rangeRequest = readRangeHeader(req.headers['range'], files[0].length);
+
+  // If 'Range' header exists, we will parse it with Regular Expression.
+  if (!rangeRequest.Start) {
+      responseHeaders['Content-Type'] = "audio/mp3"
+      responseHeaders['Content-Length'] = files[0].length;  // File size.
+      responseHeaders['Accept-Ranges'] = 'bytes';
+
+      //  If not, will return file directly.
+      sendResponse(res, 200, responseHeaders, bucket.openDownloadStream(trackID));
+      return null;
+  }
+
+  var start = rangeRequest.Start;
+  var end = rangeRequest.End;
+
+  // If the range can't be fulfilled. 
+  if (start >= files[0].length || end >= files[0].length) {
+      // Indicate the acceptable range.
+      responseHeaders['Content-Range'] = 'bytes */' + files[0].length; // File size.
+
+      // Return the 416 'Requested Range Not Satisfiable'.
+      sendResponse(res, 416, responseHeaders, null);
+      return null;
+  }
+
+  // Indicate the current range. 
+  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + files[0].length;
+  responseHeaders['Content-Length'] = start == end ? 0 : (end - start + 1);
+  responseHeaders['Content-Type'] = 'audio/mp3';
+  responseHeaders['Accept-Ranges'] = 'bytes';
+  responseHeaders['Cache-Control'] = 'no-cache';
+
+  // Return the 206 'Partial Content'.
+  sendResponse(res, 206, responseHeaders, bucket.openDownloadStream(trackID, { start: start, end: end }));
+    });
+
   } catch (ex) {
     console.log(ex);
   }
-  res.set('content-type','audio/mp3')
-  res.set('accept-ranges','bytes')
-  let downloadStream = await bucket.openDownloadStream(trackID);
-
-  downloadStream.on("data", (chunk) => {
-    res.write(chunk);
-  });
-
-  downloadStream.on("error", () => {
-    res.sendStatus(404);
-  });
-
-  downloadStream.on("end", () => {
-    res.end();
-  });
+ 
+  
 });
+function sendResponse(response, responseStatus, responseHeaders, readable) {
+  response.writeHead(responseStatus, responseHeaders);
+
+  if (readable == null)
+      response.end();
+  else
+      readable.on('data', function (chunk) {
+         response.write(chunk)
+      });
+      readable.on("end", () => {
+        response.end();
+  });
+
+  return null;
+}
+
+function getMimeNameFromExt(ext) {
+  var result = mimeNames[ext.toLowerCase()];
+  
+  // It's better to give a default value.
+  if (result == null)
+      result = 'application/octet-stream';
+  
+  return result;
+}
+
+function readRangeHeader(range, totalLength) {
+      /*
+       * Example of the method 'split' with regular expression.
+       * 
+       * Input: bytes=100-200
+       * Output: [null, 100, 200, null]
+       * 
+       * Input: bytes=-200
+       * Output: [null, null, 200, null]
+       */
+
+  if (range == null || range.length == 0)
+      return null;
+
+  var array = range.split(/bytes=([0-9]*)-([0-9]*)/);
+  var start = parseInt(array[1]);
+  var end = parseInt(array[2]);
+  var result = {
+      Start: isNaN(start) ? 0 : start,
+      End: isNaN(end) ? (totalLength - 1) : end
+  };
+  
+  if (!isNaN(start) && isNaN(end)) {
+      result.Start = start;
+      result.End = totalLength - 1;
+  }
+
+  if (isNaN(start) && !isNaN(end)) {
+      result.Start = totalLength - end;
+      result.End = totalLength - 1;
+  }
+
+  return result;
+}
+
 
 module.exports = app;
