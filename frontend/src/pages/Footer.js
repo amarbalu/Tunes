@@ -1,106 +1,156 @@
-import React,{useRef, useEffect, useState} from 'react';
-import {Layout,Row, Col,Icon,Card} from 'antd';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import useAudioPlayer from './useAudioPlayer';
-import Bar from './AudioBar.js';
-import {connect} from 'react-redux'
+import React, { useRef, useEffect, useState } from "react";
+import { Layout, Row, Col, Icon, Card } from "antd";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+import useAudioPlayer from "./useAudioPlayer";
+import Bar from "./AudioBar.js";
+import { connect } from "react-redux";
 
-const FooterComp=(props)=>{
-  const [state,setState]=useState("")
-  const { playing, setPlaying , curTime, duration, setClickedTime } = useAudioPlayer();
-    useEffect(()=>{
-      setState({audioSrc:props.audioSrc})
-    },[props.audioSrc])
-    const {Footer} = Layout;
-    const player = useRef(null);
+const FooterComp = (props) => {
+  const [state, setState] = useState("");
+  const {
+    playing,
+    setPlaying,
+    curTime,
+    duration,
+    setClickedTime,
+  } = useAudioPlayer();
+  useEffect(() => {
     const audio = document.getElementById("audio");
-    // useEffect(() =>{
-//       const audio = document.getElementById("audio");
-//       audio.addEventListener("pause",()=> {
-//         audio.pause()
-// setPlaying(false)
-//       },false)
-//       audio.addEventListener("play",()=> {
-//         audio.play()
-// setPlaying(true)
-//       },false)
-//     },[])
-    const onloadData=()=> {
-      const sec = parseInt(document.location.search.substr(1));
-      
-              if (!isNaN(sec))
-              setClickedTime(sec)
+    setState({ audioSrc: props.audioSrc });
+    
+  }, [props.audioSrc]);
+  const { Footer } = Layout;
+  const player = useRef(null);
+
+  const onloadData = (second) => {
+    if (second) {
+      setClickedTime(Math.round(second));
     }
-  // const timeUpdate=(time)=>{
-  //   setState({audioSrc:`${process.env.REACT_APP_API_URL}/music/files/${props.songid}?start=${Math.round(time)}`})
-  //   setClickedTime(time)
-  // }
-//   const handleClick=(props)=> {
-//      const audio = document.getElementById("audio");
-//     if (playing) {
-//       audio.pause();
-//       document.title="Tunes"
-//     } else {
-//       document.title=props.metadata.common.title;
-//        audio.play();
-//     }
-//     setPlaying(!playing)
-//  };
-    return(
-        <Footer style={{ textAlign: 'center',position: "fixed",width: "100%",bottom: "0px",padding:"12px",height:"75px",// ,display:props.metadata?"block":"none"
-        height: "90px" }}>
-          <Row type="flex">
-          <Col xs={24} sm={10}>
-            <Row>
-              <Col span={3}>
-          <Card hoverable style={{ width: "40px" ,height:"40px",display:props.metadata?"block":"none"}} cover={<img alt="song" src={props.metadata && props.metadata.common?'data:image/jpeg;base64,' +props.metadata.common.picture[0].data:require('../images/song_logo.png')} />}>
-          </Card>
-          </Col>
+    const sec = parseInt(document.location.search.substr(1));
 
-            <Col span={18}>
-             
+    if (!isNaN(sec)) setClickedTime(sec);
+  };
+
+  const handleClick = (props) => {
+    const audio = document.getElementById("audio");
+    if (playing) {
+      audio.pause();
+      document.title = "Tunes";
+    } else {
+      document.title = props.metadata.common.title;
+      audio.play();
+    }
+    setPlaying(!playing);
+  };
+  return (
+    <Footer
+      style={{
+        textAlign: "center",
+        position: "fixed",
+        width: "100%",
+        bottom: "0px",
+        padding: "12px",
+        height: "75px", 
+        height: "90px",
+      }}
+    >
+      <Row type="flex">
+        <Col xs={24} sm={10}>
+          <Row>
+            <Col span={3}>
+              <Card
+                hoverable
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  display: props.metadata ? "block" : "none",
+                }}
+                cover={
+                  <img
+                    alt="song"
+                    src={
+                      props.metadata && props.metadata.common
+                        ? "data:image/jpeg;base64," +
+                          props.metadata.common.picture[0].data
+                        : require("../images/song_logo.png")
+                    }
+                  />
+                }
+              ></Card>
+            </Col>
+
+            <Col span={21}>
               <div>
-              <span style={{display:'flex',fontWeight:'bold'}}>
-              <h6>{props.metadata&& props.metadata.common?props.metadata.common.title.split("::")[0]:props.metadata && props.metadata.filename?atob(props.metadata.filename):null}</h6>
-              </span>
-            </div>
-              <div style={{ display:"flex",   width: "100%",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap"}}>
- 
-   {props.metadata && props.metadata.common && props.metadata.common.artist ?props.metadata.common.artist:null}
+                <span style={{ display: "flex", fontWeight: "bold" }}>
+                  <h6>
+                    {props.metadata && props.metadata.common
+                      ? props.metadata.common.title.split("::")[0]
+                      : props.metadata && props.metadata.filename
+                      ? atob(props.metadata.filename)
+                      : null}
+                  </h6>
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {props.metadata &&
+                props.metadata.common &&
+                props.metadata.common.artist
+                  ? props.metadata.common.artist
+                  : null}
+              </div>
+            </Col>
+           
+          </Row>
+        </Col>
+        <Col xs={4} sm={2}>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                {!playing ? (
+                  <Icon
+                    type="play-circle"
+                    theme="filled"
+                    style={{ fontSize: "x-large" }}
+                    onClick={() => handleClick(props)}
+                  />
+                ) : (
+                  <Icon
+                    type="pause-circle"
+                    theme="filled"
+                    style={{ fontSize: "x-large" }}
+                    onClick={() => handleClick(props)}
+                  />
+                )}
+              </div>
+            </Col>
+        <Col xs={20} sm={12}>
 
-  </div>
-  </Col>
-  <Col xs={{span:3}}>
-  <div style={{display:"flex",justifyContent:"flex-end"}}> 
-          {/* {!playing?<Icon type="play-circle" theme="filled"  style={{fontSize:"x-large"}} onClick={()=>handleClick(props)} />:
-          <Icon type="pause-circle" theme="filled" style={{fontSize:"x-large"}}   onClick={()=>handleClick(props)}/>} */}
-  
-
-  </div>
-  </Col>
-  </Row>
-          </Col>
-          <Col xs={{span:0}} sm={14}>
-          {/* <AudioPlayer
-   autoPlay
-    src={props.audioSrc}
-    onPlay={e => console.log("onPlay")}/> */}
-          <audio id="audio"  autoplay controls="controls" src={state.audioSrc} onloadedmetadata={onloadData()}   />
-   {/* <Bar curTime={curTime} duration={duration} setClickedTime={()=>{player.current.onloadedmetadata}}/>         */}
-          </Col>
-          
-        </Row>
-          
-          </Footer>
-    )
-}
-const mapStateToProps=state=>{
-  return{
-    metadata:state.musicReducer.metadata
-  }
-}
-export default connect(mapStateToProps, null)(FooterComp)
+          <audio
+            id="audio"
+            autoplay
+            src={state.audioSrc}
+            onloadedmetadata={onloadData()}
+          />
+          <Bar
+            curTime={curTime}
+            duration={duration}
+            setClickedTime={(sec) => onloadData(sec)}
+          />
+        </Col>
+      </Row>
+    </Footer>
+  );
+};
+const mapStateToProps = (state) => {
+  return {
+    metadata: state.musicReducer.metadata,
+  };
+};
+export default connect(mapStateToProps, null)(FooterComp);

@@ -129,7 +129,7 @@ app.get("/files/:trackID", async (req, res) => {
      const rangeRequest = readRangeHeader(req.headers['range'], files[0].length);
 
   // If 'Range' header exists, we will parse it with Regular Expression.
-  if (!rangeRequest.Start) {
+  if (rangeRequest===null) {
       responseHeaders['Content-Type'] = "audio/mp3"
       responseHeaders['Content-Length'] = files[0].length;  // File size.
       responseHeaders['Accept-Ranges'] = 'bytes';
