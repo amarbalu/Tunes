@@ -1,7 +1,5 @@
 import React from "react";
 import moment from "moment";
-import useAudioPlayer from './useAudioPlayer';
-import { Progress } from 'antd';
 import momentDurationFormatSetup from "moment-duration-format";
 import '../css/styles.css'
 
@@ -43,8 +41,6 @@ export default function Bar(props) {
   return (
     <div className="bar">
       <span className="bar__time" style={{marginLeft:'10px',fontSize:'small'}}>{formatDuration(curTime)}</span>
-      
-        {/* <Progress percent={curPercentage}  showInfo={false}  onMouseDown={e => handleTimeDrag(e)}/> */}
         <input type="range" className="bar__progress" value={curPercentage}  onMouseDown={e => handleTimeDrag(e)}/>
       <span className="bar__time" tyle={{marginLeft:'10px',fontSize:'small'}}>{formatDuration(duration)}</span>
     </div>

@@ -1,27 +1,29 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Layout, Row, Col, Icon, Card } from "antd";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
 import useAudioPlayer from "./useAudioPlayer";
 import Bar from "./AudioBar.js";
 import { connect } from "react-redux";
 
 const FooterComp = (props) => {
-  const [state, setState] = useState("");
+  const [state, setState] = useState({
+    audioSrc:""
+  });
   const {
     playing,
     setPlaying,
     curTime,
     duration,
-    setClickedTime,
+    setClickedTime,setDuration
   } = useAudioPlayer();
   useEffect(() => {
-    const audio = document.getElementById("audio");
-    setState({ audioSrc: props.audioSrc });
+    if(state.audioSrc !== props.audioSrc){
+      setState({ audioSrc: props.audioSrc });
+      setPlaying(false)
+      setDuration(0.0100)
+    }
     
   }, [props.audioSrc]);
   const { Footer } = Layout;
-  const player = useRef(null);
 
   const onloadData = (second) => {
     if (second) {
@@ -51,14 +53,14 @@ const FooterComp = (props) => {
         width: "100%",
         bottom: "0px",
         padding: "12px",
-        height: "75px", 
-        height: "90px",
+        height: "75px"
       }}
     >
+      {props.audioSrc?
       <Row type="flex">
-        <Col xs={24} sm={10}>
+        <Col xs={22} sm={10}>
           <Row>
-            <Col span={3}>
+            <Col span={4}>
               <Card
                 hoverable
                 style={{
@@ -80,7 +82,7 @@ const FooterComp = (props) => {
               ></Card>
             </Col>
 
-            <Col span={21}>
+            <Col span={20}>
               <div>
                 <span style={{ display: "flex", fontWeight: "bold" }}>
                   <h6>
@@ -111,7 +113,7 @@ const FooterComp = (props) => {
            
           </Row>
         </Col>
-        <Col xs={4} sm={2}>
+        <Col xs={2} sm={2}>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 {!playing ? (
                   <Icon
@@ -130,7 +132,7 @@ const FooterComp = (props) => {
                 )}
               </div>
             </Col>
-        <Col xs={20} sm={12}>
+        <Col xs={{span:0}} sm={12}>
 
           <audio
             id="audio"
@@ -144,7 +146,12 @@ const FooterComp = (props) => {
             setClickedTime={(sec) => onloadData(sec)}
           />
         </Col>
-      </Row>
+      </Row>: <audio
+            id="audio"
+            autoplay
+            src={state.audioSrc}
+            onloadedmetadata={onloadData()}
+          />}
     </Footer>
   );
 };

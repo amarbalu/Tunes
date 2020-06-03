@@ -4,18 +4,7 @@ function useAudioPlayer() {
   const [duration, setDuration] = useState(0.0100);
   const [curTime, setCurTime] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [clickedTime, setClickedTime] = useState();
-//   useEffect(() =>{
-//     const audio = document.getElementById("audio");
-//     audio.addEventListener("pause",()=> {
-//       audio.pause()
-// setPlaying(false)
-//     },false)
-//     audio.addEventListener("play",()=> {
-//       audio.play()
-// setPlaying(true)
-//     },false)
-//   },[])
+  const [clickedTime, setClickedTime] = useState(0);
   useEffect(() => {
     
     const audio = document.getElementById("audio");
@@ -23,6 +12,8 @@ function useAudioPlayer() {
     const setAudioData = () => {
       setDuration(audio.duration);
       setCurTime(audio.currentTime);
+      setPlay()
+      audio.play()
     }
     const setPlay=()=>setPlaying(true)
     const setPause=()=>setPlaying(false)
@@ -48,13 +39,6 @@ function useAudioPlayer() {
       audio.removeEventListener("timeupdate", setAudioTime);
     }
   });
-  // useEffect(()=>{
-  //   const audio = document.getElementById("audio");
-  //   const setPlay=()=>setPlaying(true)
-  //   const setPause=()=>setPlaying(false)
-  //  !playing? audio.addEventListener("play", setPlay,false):
-  //   audio.addEventListener("pause", setPause,false)
-  // },[playing])
 
   return {
     curTime,
@@ -62,7 +46,8 @@ function useAudioPlayer() {
     playing,
     setPlaying,
     setClickedTime,
-    setCurTime
+    setCurTime,
+    setDuration
   }
 }
 

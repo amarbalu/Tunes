@@ -9,7 +9,7 @@ const AlbumContent=(props)=>{
     useEffect(()=>{
         const map={};
 if(props.songs.length){
-    if(props.fiterBy==="artists"){
+    if(props.filterby==="artists"){
     const artistFilter=props.songs.map(check => check.metadata.common.composer[0]).filter((value,index,self)=>self.indexOf(value)===index);
     
     artistFilter.forEach(value=>{
