@@ -82,7 +82,9 @@ console.log(req.csrfToken)
     const gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
       bucketName: "uploads",
     });
-    await gridFSBucket.find({_id:regex}).toArray((err, files) => {
+    await gridFSBucket.find({
+      // _id:regex
+    }).toArray((err, files) => {
       if (!files || files.length === 0) {
         return res.json({
           err: "No files exists",

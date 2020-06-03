@@ -103,7 +103,7 @@ app.get("/profile",authCheck, (req, res) => {
   res.send(req.user);
 });
 
-app.use("/register",authCheck, register);
+app.use("/register", register);
 app.use("/music",authCheck, music);
 app.use("/login",authCheck, login);
 app.get("/logout", (req, res) => {
