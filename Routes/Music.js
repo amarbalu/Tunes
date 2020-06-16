@@ -127,8 +127,8 @@ app.get("/files/:trackID", async (req, res) => {
           err: "No files exists",
         });
       }
-      const responseHeaders = {};
-     const rangeRequest = readRangeHeader(req.headers['range'], files[0].length);
+      const responseHeaders = {}; 
+     const rangeRequest = readRangeHeader(req.headers['range'], files[0].length - 1);
 
   // If 'Range' header exists, we will parse it with Regular Expression.
   if (rangeRequest===null) {
@@ -147,7 +147,7 @@ app.get("/files/:trackID", async (req, res) => {
   // If the range can't be fulfilled. 
   if (start >= files[0].length || end >= files[0].length) {
       // Indicate the acceptable range.
-      responseHeaders['Content-Range'] = 'bytes */' + files[0].length; // File size.
+      responseHeaders['Content-Range'] = 'bytes */' + files[0].length - 1; // File size.
 
       // Return the 416 'Requested Range Not Satisfiable'.
       sendResponse(res, 416, responseHeaders, null);
@@ -155,14 +155,14 @@ app.get("/files/:trackID", async (req, res) => {
   }
 
   // Indicate the current range. 
-  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + files[0].length;
+  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + files[0].length - 1;
   responseHeaders['Content-Length'] = start == end ? 0 : (end - start + 1);
   responseHeaders['Content-Type'] = 'audio/mp3';
   responseHeaders['Accept-Ranges'] = 'bytes';
   responseHeaders['Cache-Control'] = 'no-cache';
 
   // Return the 206 'Partial Content'.
-  sendResponse(res, 206, responseHeaders, bucket.openDownloadStream(trackID, { start: start, end: end }));
+  sendResponse(res, 200, responseHeaders, bucket.openDownloadStream(trackID, { start: start, end: end }));
     });
 
   } catch (ex) {
