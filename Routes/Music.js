@@ -128,7 +128,7 @@ app.get("/files/:trackID", async (req, res) => {
         });
       }
       const responseHeaders = {}; 
-     const rangeRequest = readRangeHeader(req.headers['range'], files[0].length - 1);
+     const rangeRequest = readRangeHeader(req.headers['range'], files[0].length );
 
   // If 'Range' header exists, we will parse it with Regular Expression.
   if (rangeRequest===null) {
@@ -147,7 +147,7 @@ app.get("/files/:trackID", async (req, res) => {
   // If the range can't be fulfilled. 
   if (start >= files[0].length || end >= files[0].length) {
       // Indicate the acceptable range.
-      responseHeaders['Content-Range'] = 'bytes */' + (parseInt(files[0].length) - 1); // File size.
+      responseHeaders['Content-Range'] = 'bytes */' + end; // File size.
 
       // Return the 416 'Requested Range Not Satisfiable'.
       sendResponse(res, 416, responseHeaders, null);
@@ -155,7 +155,7 @@ app.get("/files/:trackID", async (req, res) => {
   }
 
   // Indicate the current range. 
-  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + (parseInt(files[0].length) - 1);
+  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + end;
   responseHeaders['Content-Length'] = start == end ? 0 : (end - start + 1);
   responseHeaders['Content-Type'] = 'audio/mp3';
   responseHeaders['Accept-Ranges'] = 'bytes';
