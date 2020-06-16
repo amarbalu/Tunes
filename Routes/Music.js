@@ -145,9 +145,9 @@ app.get("/files/:trackID", async (req, res) => {
   var end = rangeRequest.End;
 
   // If the range can't be fulfilled. 
-  if (start >= files[0].length || end >= files[0].length) {
+  if (start >= files[0].length || end >= files[0].length-1) {
       // Indicate the acceptable range.
-      responseHeaders['Content-Range'] = 'bytes */' + end; // File size.
+      responseHeaders['Content-Range'] = 'bytes */' + files[0].length; // File size.
 
       // Return the 416 'Requested Range Not Satisfiable'.
       sendResponse(res, 416, responseHeaders, null);
@@ -155,14 +155,14 @@ app.get("/files/:trackID", async (req, res) => {
   }
 
   // Indicate the current range. 
-  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + end;
+  responseHeaders['Content-Range'] = 'bytes ' + start + '-' + end + '/' + files[0].length;
   responseHeaders['Content-Length'] = start == end ? 0 : (end - start + 1);
   responseHeaders['Content-Type'] = 'audio/mp3';
   responseHeaders['Accept-Ranges'] = 'bytes';
   responseHeaders['Cache-Control'] = 'no-cache';
 
   // Return the 206 'Partial Content'.
-  sendResponse(res, 206, responseHeaders, bucket.openDownloadStream(trackID, { start: start, end: end }));
+  sendResponse(res, 206, responseHeaders, bucket.openDownloadStream(trackID, { start: start, end: files[0].length }));
     });
 
   } catch (ex) {
