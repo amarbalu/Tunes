@@ -34,7 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment-timezone": "^0.5.26",
     "mongodb": "^3.3.2",
-    "mongoose": "^5.6.0",
+    "mongoose": "^5.7.5",
     "multer": "^1.4.1",
     "multer-gridfs-storage": "^3.2.3",
     "music-metadata": "^4.2.1",
