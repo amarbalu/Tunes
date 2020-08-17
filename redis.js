@@ -1,13 +1,16 @@
-// const redis=require('redis');
-// const redisUrl="redis://127.0.0.1:6379";
-
-// const client=redis.createClient(redisUrl);
-
-
-// // client.set("hi","there");
-
-// // client.get("hi",console.log)
-
-// client.hset("tamil","red","sivappu");
-
-// client.hget("tamil","red",console.log)
+const redis = require("redis");
+const dbConfig = require("./config/database.config.js");
+const redisClient = redis.createClient({
+    host: dbConfig.redis_host,
+    port: dbConfig.redis_port,
+  });
+  // if (process.env.NODE_ENV === "development") {
+    redisClient.auth(dbConfig.redis_pwd, (err, response) => {
+      if (err) {
+        throw err;
+      } else {
+        console.log(response);
+      }
+    });
+  // }
+  module.exports.redisClient=redisClient;

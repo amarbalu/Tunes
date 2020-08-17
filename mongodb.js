@@ -2,10 +2,10 @@ const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(
+const connect = mongoose.createConnection(
     dbConfig.url
     , {
-  useNewUrlParser: true
+  useNewUrlParser: true,useUnifiedTopology: true
 }).then(() => {
   console.log("Successfully connected to the database");    
 }).catch(err => {
@@ -14,5 +14,7 @@ mongoose.connect(
 });
 
 
-module.exports=mongoose;
+module.exports.connect=connect;
+module.exports.mongoose=mongoose;
+
 
