@@ -1,7 +1,8 @@
 const express=require('express');
 const app = express.Router();
 const formidableMiddleware = require('express-formidable');
-const {validateUser,User}=require('../collections/UserCollection');
+const {validateUser}=require('../collections/UserCollection');
+const {User}=require('../mongodb');
 const bcrypt=require('bcrypt');
 app.use(express.json())
 app.use(formidableMiddleware())

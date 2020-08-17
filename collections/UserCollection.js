@@ -1,16 +1,17 @@
-const mongoose = require('mongoose');
+
+const {Schema}=require("mongoose")
+ 
 const Joi = require('@hapi/joi');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     username:{type:String,required:true,minlength:4,maxlength:20},
     password:{type:String,minlength:4,maxlength:1024},
-    facebook:{type:Object},
+    facebook:{type:Schema.Types.ObjectId},
     confirmPassword:{type:String,minlength:4,maxlength:1024},
     phoneNumber:{type:String,maxlength:10},
     email:{type:String,minlength:4,maxlength:255},
     date:{type:Date,defaut:Date.now}
 })
-const User = mongoose.model('User',userSchema);
 
 const validateUser=async(user)=>{
     const schema=Joi.object().keys({
@@ -19,7 +20,8 @@ const validateUser=async(user)=>{
         facebook:Joi.object(),
         confirmPassword:Joi.string().min(8).max(16),
         phoneNumber:Joi.string().min(4).max(1024),
-        email:Joi.string().min(4).max(255)
+        email:Joi.string().min(4).max(255),
+        date:Joi.date()
 
     })
       
@@ -36,6 +38,6 @@ const validateLogin=async(user)=>{
         return await Joi.validate(user,schemaLogin);
 
 }
-    module.exports.User=User;
+    module.exports.userSchema=userSchema;
     module.exports.validateUser=validateUser;
     module.exports.validateLogin=validateLogin;

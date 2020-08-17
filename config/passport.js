@@ -1,7 +1,7 @@
 const localStrategy=require('passport-local').Strategy;
 const FacebookStrategy  =     require('passport-facebook').Strategy;
 const bcrypt=require('bcrypt');
-const {User}=require('../collections/UserCollection');
+const {User}=require('../mongodb');
 const config =require('./passport.config')
 
 
