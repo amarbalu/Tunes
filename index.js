@@ -8,22 +8,9 @@ const session = require("express-session");
 const passport = require("passport");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
-const redis=require("redis");
+const {redisClient}=require("./redis");
 const csrf = require("csurf");
 const dbConfig = require('./config/database.config.js');
-const redisClient=redis.createClient({
-  host:dbConfig.redis_host,port:dbConfig.redis_port
-});
-if(process.env.NODE_ENV === "production"){
-
-  redisClient.auth(dbConfig.redis_pwd,(err,response)=>{
-  if(err){
-    throw err
-  }else{
-    console.log(response)
-  }
-})
-}
 const redisStore = require("connect-redis")(session);
 const upload = multer();
 const app = express();

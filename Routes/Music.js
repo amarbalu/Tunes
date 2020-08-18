@@ -144,7 +144,7 @@ app.get("/files/:trackID", async (req, res) => {
       var end = rangeRequest.End;
 
       // If the range can't be fulfilled.
-      if (start >= files[0].length || end >= files[0].length - 1) {
+      if (start >= files[0].length || end >= files[0].length) {
         // Indicate the acceptable range.
         responseHeaders["Content-Range"] = "bytes */" + files[0].length; // File size.
 
@@ -230,7 +230,7 @@ function readRangeHeader(range, totalLength) {
     result.Start = totalLength - end;
     result.End = totalLength - 1;
   }
-
+  
   return result;
 }
 
