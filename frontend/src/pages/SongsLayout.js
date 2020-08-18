@@ -15,9 +15,9 @@ const SongsLayout=(props)=>{
         
         cover={<img alt="cover"  onClick={()=>props.songSelected(value._id,value.filename,value.metadata)} src={value.metadata.common && value.metadata.common.picture?'data:image/jpeg;base64,' +value.metadata.common.picture[0].data:require('../images/song_logo.png')}/>} 
    
-    actions={[
+    actions={process.env.NODE_ENV==="production"?[
         <Icon type="delete" key="delete"  onClick={()=>props.deleteSong(value._id,value.filename)}/>
-      ]}
+      ]:[]}
   >
     <Meta
      style={{ whiteSpace: "nowrap",

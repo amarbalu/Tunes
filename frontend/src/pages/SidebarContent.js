@@ -36,7 +36,7 @@ const SidebarContent=props=>{
     className="sidebar-menu"
     style={{
     position:"fixed"
-    ,left:"0",zIndex:"1000",height: "calc(100% - 154px)"
+    ,left:"0",zIndex:"1000",height: "calc(100% - 140px)"
   }}
   >
     <div className="logo" />

@@ -29,16 +29,16 @@ const AppBar =  (props)  => (WrappedComponent)=> {
                 style={{ width: "40px", height: "40px", margin: "13px" }}
                 src={`${process.env.PUBLIC_URL}/music_logo.png`}
               />
-              <h3
+              <h4
                 style={{
                   position: "relative",
                   color: "white",
                   fontFamily: "sans-serif",
-                  margin: "15px 0",
+                  margin: "20px 0",
                 }}
               >
                 Tunes
-              </h3>
+              </h4>
             </div>
           </Col>
           <Col xs={5} md={7} lg={5} xl={3}>

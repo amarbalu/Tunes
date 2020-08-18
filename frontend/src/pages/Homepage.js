@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, Button, Row, Col, Icon } from "antd";
+import {withRouter} from "react-router-dom"
 import AppBar from "../components/AppBar";
 
 const Homepage = (props) => {
@@ -29,7 +30,7 @@ const Homepage = (props) => {
                 borderRadius: "20px",
               }}
               onClick={() => {
-                props.history.push("/Login");
+                props.history.push("/loginpage");
               }}
             >
               Try it for free
@@ -54,4 +55,4 @@ const Homepage = (props) => {
   );
 };
 
-export default AppBar({ title: "Homepage" })(Homepage);
+export default AppBar({ title: "Homepage" })(withRouter(Homepage));
